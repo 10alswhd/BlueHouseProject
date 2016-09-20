@@ -1,0 +1,8 @@
+<!doctype html> 
+ <article> 
+   <h1>Super awesome HTML5 page for the searching of howmanyleft.co.uk</h1> 
+   <form action="http://howmanyleft.co.uk/" method="GET"> 
+     <input type="search" name="q"> 
+     <input type="submit" value="search"> 
+   </form> 
+ </article> 
