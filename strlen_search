@@ -4,7 +4,7 @@
 int main()
 {
   char str1[100], str2[100];
-  size_t locathion;
+  size_t location;
   
   puts("문자열을 입력해주세요");
   gets(str1);
