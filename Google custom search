@@ -1,0 +1,74 @@
+<div id="content"> 
+ 
+ 
+ <script type="text/javascript"> 
+  
+     function resetDataTable() { $("tr.evernoteDevSearchResult").remove(); } 
+      
+     function responseHandler(response) { 
+         for (var i = 0; i < response.items.length; i++) { 
+             if(i == 10) { break; } 
+             var title   = response.items[i].htmlTitle; 
+             var link    = response.items[i].link; 
+             var hLink = '<a target="_blank" href="' + link + '">' + title + '"</a>'; 
+             var desc    = response.items[i].htmlSnippet; 
+  
+             newRow = document.createElement('tr'); 
+             $(newRow).addClass('evernoteDevSearchResult'); 
+  
+             linkCell = document.createElement('td').innerHTML = hLink; 
+             descCell = document.createElement('td').innerHTML = desc; 
+  
+             newRow.appendChild(linkCell); 
+             newRow.appendChild(descCell); 
+         } 
+     } 
+  
+     $(function(){ 
+         $("form#evernoteDevSearch").submit( 
+             function(event) { 
+                 event.preventDefault(); 
+                 event.stopPropagation(); 
+  
+                 var cx  = '011367451254675113020:f9mq9syvuao'; 
+                 var k   = 'AIzaSyCB7sNXowrNAZP9bfOnHO-7-WSG3AaLQK8'; 
+                 var query = $("form > input[type='text']").val(); 
+  
+                 var gurl = 'https://www.googleapis.com/customsearch/v1?key='; 
+                 gurl += k; 
+                 gurl += '&cx='+cx; 
+                 gurl += '&q='+ encodeURIComponent(query); 
+                 gurl += 'callback=responseHandler'; 
+                 $.get(gurl); 
+             } 
+         ); 
+     }); 
+  
+ </script> 
+ 
+ 
+ 
+ 
+ <p class="crumb"><script type="text/javascript" src="/media/js/breadcrumb.js"></script></p> 
+ 	 
+ 	<h1>Evernote Developer Support &ndash; Search</h1>   
+ 
+ 
+     <form id="evernoteDevSearch" method="post" action=""> 
+         <input type="text" name="q" value=""> 
+         <input type="submit" value="Search"> 
+     </form> 
+ 
+ 
+     <table id="evernoteDevSearchResults" cellpadding="0" cellspacing="0"> 
+         <th> 
+             <td>Link</td> 
+             <td>Description</td> 
+         </th>  
+         <!-- 
+         <tr class="evernoteDevSearchResult"> 
+             <td><a href="http://foo.com">Page Name</a></td> 
+             <td>This the description of the matching page</td> 
+         </tr>  
+         --> 
+     </table> 
