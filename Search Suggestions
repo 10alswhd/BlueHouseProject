@@ -1,0 +1,68 @@
+/* 
+Search Suggestions 
+Original design by Visual Idiot - http://dribbble.com/shots/377281-Search-Suggestions 
+*/ 
+
+ 
+html { 
+     min-height: 100%; 
+     background-color: #dbddde; 
+     font-family: Georgia, Helvetica Neue, Helvetica, Arial, sans-serif; 
+     -webkit-font-smoothing: antialiased; 
+ } 
+ 
+ 
+ body { 
+     position: absolute; 
+     top: 180px; 
+ } 
+ 
+ 
+ #issues { 
+     position: absolute; 
+     left: 200px; 
+ } 
+ 
+ 
+ #affects { 
+     position: absolute; 
+     left: 900px; 
+ } 
+ .search { 
+     display: block; 
+     margin: 0 auto; 
+     -webkit-appearance: none; 
+     -moz-appearance: none; 
+     border-radius: 5px; 
+     width: 500px; 
+     height: 50px; 
+     color: white; 
+     border: none; 
+     outline: none; 
+     z-index: 1; 
+    background-color: #dbddde; 
+     font-size: 36px; 
+     font-family: "Helvetica Neue"; 
+     font-weight: 700; 
+ 
+ 
+ 
+ 
+ 
+ 
+ } 
+ 
+ 
+ #s::-webkit-input-placeholder, #s:-moz-placeholder { 
+     color: #607078; 
+ } 
+ 
+ 
+ #line { 
+ width: 1180px; 
+ height: 1px; 
+ background-color: white; 
+ z-index: 9px; 
+position: absolute; 
+ left: 214px; 
+ top: 55px; 
