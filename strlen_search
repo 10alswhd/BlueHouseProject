@@ -7,9 +7,9 @@ int main()
   size_t location;
   
   puts("문자열을 입력해주세요");
-  gets(str1);
+  gets_s(str1);
   puts("찾을 단어를 입력해주세요");
-  gets(str2);
+  gets_s(str2);
   
   location = strcspn(str1, str2);
   
@@ -17,4 +17,6 @@ int main()
     printf("찾을 수 없습니다\n");
   else
     printf("위치 %d에서 처음으로 발견되었습니다\n",location);
+    
+    return 0;
 }
