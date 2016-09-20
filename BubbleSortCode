@@ -1,0 +1,9 @@
+for(i=0;i<Len-1;i++){//Len은 정렬할 데이터 수
+	for(j=0;j<Len-1-i;j++){
+		if(data[j]>data[j+1]){
+  		int temp=data[j];
+			data[j]=data[j+1];
+			data[j+1]=temp;
+		}
+	}
+}
