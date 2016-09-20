@@ -1,0 +1,13 @@
+void insertionSort(int a[], int n) 
+{ 
+ 	for (int i = 1; i < n; i++) 
+ 	{ 
+ 		int ax = a[i]; 
+		int j; 
+		for (j = i; j > 0 && ax < a[j-1]; j--) 
+ 		{ 
+ 			a[j] = a[j - 1]; 
+ 		} 
+ 		a[j] = ax; 
+ 	} 
+ } 
