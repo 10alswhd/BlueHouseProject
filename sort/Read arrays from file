@@ -1,0 +1,41 @@
+//read one array from the stream 
+ void read_arr(fstream& stream, int a[], int len) { 
+     for(int k = 0; k < len; k++) { 
+        stream >> a[k]; 
+     } 
+ } 
+ 
+ 
+ 
+ 
+ void sort_from_file() { 
+     int nt = 0; // number of arrays 
+     int nk = 0; // number of elements of an array 
+      
+     fstream fin; //input steram 
+     fin.open("test_proekt_4.txt", ios::in); 
+      
+     fin >> nt; // read number of arrays 
+      
+     for (int i = 0; i < nt; i++) { 
+         fin >> nk; 
+         int *a = new int[nk]; 
+         int *b = new int[nk]; 
+          
+         read_arr(fin, a, nk); 
+         memcpy(b, a, sizeof(int) * nk); //copy array a to b 
+          
+         //sort 
+         //sort 
+         //sort 
+          
+         //clean up 
+         delete [] a; 
+         delete [] b; 
+         a = nullptr; 
+         b = nullptr; 
+     } 
+      
+     //closing sterams 
+     fin.close(); 
+ } 
