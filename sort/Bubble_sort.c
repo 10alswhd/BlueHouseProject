@@ -2,7 +2,7 @@
 #include <stdlib.h>
 void InsertionSort(int * Array,int Length);
 void bubbleSort(int * Array,int Length);
-void main()
+void main() 
 {
     int N,i;
     printf("Enter the number of elements for the sorting : ");
@@ -16,7 +16,7 @@ void main()
     printArray(Array,N);
 }
 
-//function to perform the bubble sort
+//function to perform the bubble sort.
 void bubbleSort(int * Array,int Length)
 {
     int i,j,k,swapped = 0;
