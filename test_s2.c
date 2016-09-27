@@ -2,7 +2,7 @@
 int main()
 {
 
-printf("test code") ;
+printf("test code Hi") ;
 
 return 0 ;
 
