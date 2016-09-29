@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("초간단 계산기"); 
+        setTitle("초간단 계산기 만들기"); 
 
         edit1 = (EditText) findViewById(R.id.editText);
         edit2 = (EditText) findViewById(R.id.editText2);
