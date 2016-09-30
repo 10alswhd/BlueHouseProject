@@ -1,4 +1,4 @@
-//http://habrahabr.ru/post/205290/
+//http://habrahabr.ru/post/205290/ 
 
 #include<stdio.h>
 #include<stdlib.h>
