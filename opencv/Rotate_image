@@ -1,0 +1,39 @@
+/* Compile & Run: 
+ clang++ -std=c++11 -fsanitize=address -o opencv_rotate_image opencv_rotate_image.cpp -lopencv_core -lopencv_imgproc -lopencv_highgui && ASAN_OPTIONS="detect_leaks=1" ./opencv_rotate_image 
+ */ 
+ 
+ 
+ static const char *IMAGE_FILENAME = "test.png"; 
+ static const double ANGLE = 15; 
+ 
+ 
+ #include <opencv2/imgproc/imgproc.hpp> 
+ #include <opencv2/highgui/highgui.hpp> 
+ 
+ 
+ int main() { 
+   cv::Mat image = cv::imread(IMAGE_FILENAME, -1 /* load the image AS IS. result might be BGR or BGRA. */); 
+   if (!image.data) { 
+     fprintf(stderr, "cv::imread() failed\n"); 
+     return 0; 
+   } 
+   if (image.channels() != 3 && image.channels() != 4) { 
+     fprintf(stderr, "Image has %d channels, cannot proceed\n", image.channels()); 
+   } 
+ 
+ 
+   int rotated_width = (double)image.cols * fabs(cos(ANGLE * CV_PI / 180.0)) + (double)image.rows * fabs(sin(ANGLE * CV_PI / 180.0)); 
+   int rotated_height = (double)image.rows * fabs(cos(ANGLE * CV_PI / 180.0)) + (double)image.cols * fabs(sin(ANGLE * CV_PI / 180.0)); 
+   cv::Point center(image.cols / 2, image.rows / 2); 
+   cv::Mat rot_mat = cv::getRotationMatrix2D(center, ANGLE, 1); 
+   rot_mat.at<double>(0, 2) += rotated_width / 2 - image.cols / 2; 
+   rot_mat.at<double>(1, 2) += rotated_height / 2 - image.rows / 2; 
+ 
+ 
+   cv::Mat image_rotated(rotated_height, rotated_width, (image.channels() == 3) ? CV_8UC3 : CV_8UC4, cv::Scalar::all(0)); 
+   cv::warpAffine(image, image_rotated, rot_mat, image_rotated.size(), cv::INTER_CUBIC); 
+ 
+ 
+   cv::imshow("result", image_rotated); 
+   cv::waitKey(0); 
+ } 
