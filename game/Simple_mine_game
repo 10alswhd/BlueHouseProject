@@ -1,0 +1,246 @@
+using System; 
+2 
+ 
+3 namespace SimpleMineGame 
+4 { 
+5     static class Program 
+6     { 
+7         static void Main() 
+8         { 
+9             Console.WriteLine("The aim is to get to the top of the board." + 
+10                 " You start at the bottom left and can navigate up, down, left and right using the 'U', 'D', 'L' and 'R' keys respectively." + 
+11                 " A message will be printed below with the outcome of your move after the move is made."); 
+12             Console.WriteLine(); 
+13             var game = new Game(); 
+14             do 
+15             { 
+16                 var input = Console.ReadKey(true).KeyChar; 
+17                 Console.WriteLine(game.TakeTurn(input)); 
+18             } while (!game.GameOver); 
+19 
+ 
+20             Console.WriteLine(); 
+21             Console.WriteLine("Game over. Press any key to continue..."); 
+22             Console.ReadLine(); 
+23         } 
+24     } 
+25 
+ 
+26     internal class Game 
+27     { 
+28         private readonly Board board = new Board(8, 8); 
+29         public bool GameOver { get; private set; } 
+30 
+ 
+31         public string TakeTurn(char userInput) 
+32         { 
+33             try 
+34             { 
+35                 board.Move(userInput); 
+36             } 
+37             catch (InputException) 
+38             { 
+39                 return "Invalid move."; 
+40             } 
+41 
+ 
+42             var statusMessage = board.GetStatusMessage(); 
+43 
+ 
+44             if (board.Player.Y == 0) 
+45             { 
+46                 GameOver = true; 
+47                 statusMessage += ". You've won!"; 
+48             } 
+49             else if (!board.Player.IsAlive) 
+50             { 
+51                 GameOver = true; 
+52                 statusMessage += ". You died"; 
+53             } 
+54             return statusMessage; 
+55         } 
+56     } 
+57 
+ 
+58     internal class InputException : ApplicationException 
+59     { 
+60     } 
+61 
+ 
+62     internal class Board 
+63     { 
+64         private readonly int cellsAcross; 
+65         private readonly int cellsDown; 
+66         private const double MineDensity = 0.2; 
+67         private readonly Cell[,] cells; 
+68         private readonly Player player = new Player(); 
+69 
+ 
+70         public Board(int cellsAcross, int cellsDown) 
+71         { 
+72             this.cellsAcross = cellsAcross; 
+73             this.cellsDown = cellsDown; 
+74             cells = new Cell[cellsAcross, cellsDown]; 
+75 
+ 
+76             player.Y = cellsDown - 1; 
+77 
+ 
+78             var random = new Random(); 
+79             for (var i = 0; i < cellsAcross; i++) 
+80             { 
+81                 for (var j = 0; j < cellsDown; j++) 
+82                 { 
+83                     if (random.NextDouble() < MineDensity) 
+84                     { 
+85                         cells[i, j] = new Mine(); 
+86                     } 
+87                     else 
+88                     { 
+89                         cells[i, j] = new Cell(); 
+90                     } 
+91                 } 
+92             } 
+93 
+ 
+94             // Always let the player start on an unmined cell 
+95             cells[player.X, player.Y] = new Cell(); 
+96         } 
+97 
+ 
+98         public Player Player 
+99         { 
+100             get { return player; } 
+101         } 
+102 
+ 
+103         public void Move(char direction) 
+104         { 
+105             switch (direction) 
+106             { 
+107                 case 'U': 
+108                 case 'u': 
+109                     if (Player.Y > 0) 
+110                     { 
+111                         Player.MoveUp(); 
+112                     } 
+113                     break; 
+114                 case 'D': 
+115                 case 'd': 
+116                     if (Player.Y < cellsDown - 1) 
+117                     { 
+118                         Player.MoveDown(); 
+119                     } 
+120                     break; 
+121                 case 'L': 
+122                 case 'l': 
+123                     if (Player.X > 0) 
+124                     { 
+125                         Player.MoveLeft(); 
+126                     } 
+127                     break; 
+128                 case 'R': 
+129                 case 'r': 
+130                     if (Player.X < cellsAcross - 1) 
+131                     { 
+132                         Player.MoveRight(); 
+133                     } 
+134                     break; 
+135                 default: 
+136                     throw new InputException(); 
+137             } 
+138             CurrentCellForPlayer.OnEntry(Player); 
+139         } 
+140 
+ 
+141         public string GetStatusMessage() 
+142         { 
+143             var cellMessage = CurrentCellForPlayer.GetMessage(); 
+144             return cellMessage + " at " + Player.Location; 
+145         } 
+146 
+ 
+147         private Cell CurrentCellForPlayer 
+148         { 
+149             get { return cells[Player.X, Player.Y]; } 
+150         } 
+151     } 
+152 
+ 
+153     internal class Player 
+154     { 
+155         public Player() 
+156         { 
+157             Lives = 2; 
+158         } 
+159 
+ 
+160         public int Lives { get; set; } 
+161         public int X { get; set; } 
+162         public int Y { get; set; } 
+163 
+ 
+164         public bool IsAlive 
+165         { 
+166             get { return Lives > 0; } 
+167         } 
+168 
+ 
+169         public string Location 
+170         { 
+171             get { return string.Format("({0},{1})", X, Y); } 
+172         } 
+173 
+ 
+174         public void MoveUp() 
+175         { 
+176             Y -= 1; 
+177         } 
+178 
+ 
+179         public void MoveDown() 
+180         { 
+181             Y += 1; 
+182         } 
+183 
+ 
+184         public void MoveLeft() 
+185         { 
+186             X -= 1; 
+187         } 
+188 
+ 
+189         public void MoveRight() 
+190         { 
+191             X += 1; 
+192         } 
+193     } 
+194 
+ 
+195     internal class Cell 
+196     { 
+197         public virtual void OnEntry(Player player) 
+198         { } 
+199 
+ 
+200         public virtual string GetMessage() 
+201         { 
+202             return "Safely arrived"; 
+203         } 
+204     } 
+205 
+ 
+206     internal class Mine : Cell 
+207     { 
+208         public override void OnEntry(Player player) 
+209         { 
+210             player.Lives -= 1; 
+211         } 
+212 
+ 
+213         public override string GetMessage() 
+214         { 
+215             return "Bang. You hit a mine"; 
+216         } 
+217     } 
+218 } 
