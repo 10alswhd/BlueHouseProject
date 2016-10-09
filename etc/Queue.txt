@@ -79,11 +79,11 @@ void printQ(QueueType *cQ)
 	printf(" ]");
 }
 
-int SelectMenu() //¸Ş´ºÃâ·Â ¹× ¼±ÅÃ
+int SelectMenu() //ë©”ë‰´ì¶œë ¥ ë° ì„ íƒ
 {
     int key = 0;
-    printf("¿øÇüÅ¥\n");
-    printf("1: »ğÀÔ 2: »èÁ¦ 3: Å¥Ãâ·Â 4: Á¾·á\n");
+    printf("ì›í˜•í\n");
+    printf("1: ì‚½ì… 2: ì‚­ì œ 3: íì¶œë ¥ 4: ì¢…ë£Œ\n");
     scanf_s("%d", &key);
     return key;
 }
@@ -92,18 +92,18 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	QueueType *cQ = createQueue();
 	int key = 0;
-    while ((key = SelectMenu()) != 4)//¼±ÅÃÇÑ ¸Ş´º°¡ 0ÀÌ ¾Æ´Ï¸é ¹İº¹
+    while ((key = SelectMenu()) != 4)//ì„ íƒí•œ ë©”ë‰´ê°€ 0ì´ ì•„ë‹ˆë©´ ë°˜ë³µ
     {
-        switch (key)//¼±ÅÃÇÑ Å°¿¡ µû¶ó ±â´É ¼öÇà
+        switch (key)//ì„ íƒí•œ í‚¤ì— ë”°ë¼ ê¸°ëŠ¥ ìˆ˜í–‰
         {
-        case 1: enQueue(cQ,'A'); break; //»ğÀÔ
-        case 2: deQueue(cQ); break; //»èÁ¦
-        case 3: printQ(cQ); break; //Å¥Ãâ·Â
-        default: printf("Àß¸ø ¼±ÅÃÇÏ¿´½À´Ï´Ù.\n"); break;
+        case 1: enQueue(cQ,'A'); break; //ì‚½ì…
+        case 2: deQueue(cQ); break; //ì‚­ì œ
+        case 3: printQ(cQ); break; //íì¶œë ¥
+        default: printf("ì˜ëª» ì„ íƒí•˜ì˜€ìŠµë‹ˆë‹¤.\n"); break;
         }
     }
 
-    printf("ÇÁ·Î±×·¥ Á¾·á\n");
+    printf("í”„ë¡œê·¸ë¨ ì¢…ë£Œ\n");
 	system("pause");
 	return 0;
 }
