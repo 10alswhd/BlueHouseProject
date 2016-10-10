@@ -1,0 +1,19 @@
+/*text-area 배경색*/
+.text-area {
+	-fx-background-color: gold;
+}
+
+/*scroll-pane 배경색*/
+.text-area .scroll-pane {
+	-fx-background-color: transparent;
+}
+
+/*viewport 배경색*/
+.text-area .scroll-pane .viewport{
+	-fx-background-color: transparent;
+}
+
+/*content 배경색*/
+.text-area .scroll-pane .content{
+	-fx-background-color: transparent;
+}
