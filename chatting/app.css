@@ -1,0 +1,19 @@
+/*text-area ������*/
+.text-area {
+	-fx-background-color: gold;
+}
+
+/*scroll-pane ������*/
+.text-area .scroll-pane {
+	-fx-background-color: transparent;
+}
+
+/*viewport ������*/
+.text-area .scroll-pane .viewport{
+	-fx-background-color: transparent;
+}
+
+/*content ������*/
+.text-area .scroll-pane .content{
+	-fx-background-color: transparent;
+}
