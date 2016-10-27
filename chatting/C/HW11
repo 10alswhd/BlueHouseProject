@@ -1,0 +1,155 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <winsock2.h>
+#include <windows.h>
+#define NO_FLAG 0
+#define STR_LEN 10
+
+int Stage1(WSADATA* server);
+void Stage2(int* ID);
+int Stage3(struct sockaddr_in* client, int port, char *ip);
+int Stage4(int ID, struct sockaddr_in client);
+int Stage5s(int ID, const char* buf, int len, int flags);
+void Stage6(int ID);
+void MoreStage(char SBuf[], char RBuf[]);
+int main(int argc, char *argv[])
+{
+	WSADATA Server;
+	int SocketID;
+	struct sockaddr_in client;
+	char SBuf[STR_LEN] = {0};
+	char RBuf[STR_LEN];
+	int port,i;
+	char ip[16] = {0};
+	strncpy(ip, argv[1], 15);
+	port = (argv[2][0] - '0') * 1000 + (argv[2][1] - '0') * 100 + (argv[2][2] - '0') * 10 + (argv[2][3] - '0');
+	strncpy(SBuf, argv[3], 9);
+	if (Stage1(&Server))
+	{
+		return 1;
+	}
+	Stage2(&SocketID);
+	if (SocketID == INVALID_SOCKET)
+	{
+		WSACleanup();
+		return 1;
+	}
+	Stage3(&client,port,ip);
+	if (Stage4(SocketID, client) == SOCKET_ERROR)
+	{
+		return 1;
+	}
+	if (Stage5s(SocketID, SBuf, STR_LEN, NO_FLAG) == SOCKET_ERROR)
+	{
+		return 1;
+	}
+	if (Stage5r(SocketID,RBuf,STR_LEN,NO_FLAG) == SOCKET_ERROR)
+	{
+		return 1;
+	}
+	MoreStage(SBuf, RBuf);
+	Stage6(SocketID);
+	WSACleanup();
+	system("PAUSE");
+	return 0;
+}
+
+int Stage1(WSADATA* server)
+{
+	int err;
+	err = WSAStartup(MAKEWORD(1, 1), server);
+	if (err)
+	{
+		printf("Error number %d\n", err);
+	}
+	else
+	{
+		printf("Configuration socket success\n");
+	}
+	return err;
+}
+void Stage2(int* ID)
+{
+	 *ID = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (*ID == INVALID_SOCKET)
+	{
+		printf("Error create socket number %d\n", WSAGetLastError());
+		WSACleanup();
+	}
+	else
+	{
+		printf("Socket created successfuly\n");
+	}
+}
+int Stage3(struct sockaddr_in* client,int port,char *ip)
+{
+	client->sin_family = AF_INET;
+	client->sin_addr.s_addr = inet_addr(ip);
+	client->sin_port = htons(port);
+	printf("Socket directed to\nip: %s\nport: %d\n",ip,port);
+}
+int Stage4(int ID, struct sockaddr_in client)
+{
+	int cResult = connect(ID, (struct sockaddr*)&client, sizeof(client));
+	if (cResult == SOCKET_ERROR)
+	{
+		printf("connect failed error number: %d\n", WSAGetLastError());
+		Stage6(ID);
+		WSACleanup();
+	}
+	else
+	{
+		printf("Socket connected to the server\n");
+	}
+	return cResult;
+}
+int Stage5s(int ID, char* buf, int len, int flags)
+{
+	int err = send(ID, buf, len, flags);
+	if (err == SOCKET_ERROR)
+	{
+		Stage6(ID);
+		WSACleanup();
+		printf("sender error");
+	}
+	else
+	{
+		printf("the massage sent: \"%s\"\n", buf);
+	}
+	return err;
+}
+int Stage5r(int ID, char* buf, int len, int flags)
+{
+	int err = recv(ID, buf, len, flags);
+	if (err == SOCKET_ERROR)
+	{
+		printf("receaver error");
+	}
+	else
+	{
+		printf("New massage receave: \"%s\"\n",buf);
+	}
+	return err;
+}
+void Stage6(int ID)
+{
+	if (closesocket(ID) == SOCKET_ERROR)
+	{
+		printf("Close socket error number: %d\n", WSAGetLastError());
+	}
+	else
+	{
+		printf("The socket close successfuly\n");
+	}
+}
+void MoreStage(char SBuf[], char RBuf[])
+{
+	if (!strcmp(SBuf,RBuf))
+	{
+		printf("The strings are similar\n");
+	}
+	else
+	{
+		printf("The strings are not similar\n");
+	}
+}
