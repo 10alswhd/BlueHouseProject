@@ -1,0 +1,5 @@
+<Button Content="" HorizontalAlignment="Left" Margin="71,153,0,0" VerticalAlignment="Top" Height="92" Width="94" Style="{StaticResource ButtonStyle1}">
+                <Button.Background>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="/appbar.control.play.png"/>
+                </Button.Background>
+            </Button>
