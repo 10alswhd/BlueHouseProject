@@ -1,0 +1,125 @@
+<!DOCTYPE html />
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <title>언제나 휴일</title>
+    <style>
+        nav
+        {
+            height:5%;
+            background-color:Aqua;
+            color:White;            
+            font-weight:bold;            
+        }
+        nav li
+        {
+            display:inline;
+            width:23%;
+            margin:5px;                        
+        }
+        
+        section article
+        {
+            width:23%;
+            height:85%;
+            float:left;
+            margin:5px;
+            padding:5px;
+            border:1px dotted #999;
+        }
+        
+        article h2
+        {
+            background-color:Green;
+            color:white;
+        }
+        article h3
+        {
+            background-color:Orange;
+            color:Green;
+        }
+            
+        footer
+        {
+            margin:10px;
+            clear:both;
+            text-align:center;
+        }
+            
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#programming">프로그래밍 언어</a></li>
+                <li><a href="#travel">여행</a></li>
+                <li><a href="#book">책</a></li>
+                <li><a href="#free">자유로운 글</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <article id="programming">
+            <h2>프로그래밍 언어</h2>
+            <h3>C언어</h3>
+            <dl>
+                <dt>형식</dt>
+                <dd>C언어의 형식에는 기본 형식과 매커니즘 형식, 사용자 정의 형식이 있습니다.</dd>
+                <dt>제어문</dt>
+                <dd>C언어의 제어문에는 조건문, 반복문, 선택문, 분기문이 있습니다.</dd>
+            </dl>
+            <h3>C++언어</h3>
+            <dl>
+                <dt>캡슐화</dt>
+                <dd>C++의 캡슐화에서는 멤버 필드와 멤버 메서드를 캡슐화할 수 있습니다.</dd>
+                <dt>상속</dt>
+                <dd>C++에서는 기반 형식에서 파생한 형식을 정의할 수 있습니다.</dd>            
+            </dl>
+        </article>
+        <article id="travel">
+            <h2>여행</h2>
+            <h3>국내 여행</h3>
+            <dl>
+                <dt>천안</dt>
+                <dd>천안에는 독립기념관, 천안 삼거리 등의 볼거리가 많습니다.</dd>
+                <dt>아산</dt>
+                <dd>아산에는 외암마을, 공세리 성당, 현충사 등의 볼거리가 많습니다.</dd>
+            </dl>
+            <h3>해외 여행</h3>
+            <dl>
+                <dt>이탈리아</dt>
+                <dd>이탈리아는 로마 뿐만이 아니라 르네상스의 근원지인 피렌치가 있습니다.</dd>
+                <dt>프랑스</dt>
+                <dd>프랑스 파리에는 센느강과 에펠탑이 유명합니다.</dd>            
+            </dl>
+        </article>
+        <article id="book">
+            <h2>책</h2>
+            <h3>박완서</h3>
+            <dl>
+                <dt>부끄러움을 가리칩니다.</dt>
+                <dd>고 박완서 님은 부끄러움을 가르칩니다를 비롯하여 많은 단편 소설들은 감동을 줍니다.</dd>        
+            </dl>
+            <h3>괴테</h3>
+            <dl>
+                <dt>젊은 베르테르의 슬픔</dt>
+                <dd>젊은 베르테르는 자신의 이데아와 어긋나는 비굴함보다 자살을 선택하였습니다.</dd>
+                <dt>파우스트</dt>
+                <dd>파우스트와 메피스토펠리스의 계약에는 우리의 모습을 담고 있습니다.</dd>            
+            </dl>
+        </article>
+        <article id="free">
+            <h2>자유로운 글</h2>
+            <h3>숫자</h3>
+            <dl>
+                <dt>한국</dt>
+                <dd>하나, 둘, 셋, 넷, 다섯, 여섯, 일곱, 여덟, 아홉, 열</dd>        
+            </dl>    
+        </article>
+    </section>    
+    <footer>
+        <p>Copyright 2015 언제나 휴일 ehclub.co.kr</p>
+    </footer>
+</body>
+</html>
