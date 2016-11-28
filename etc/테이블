@@ -1,0 +1,120 @@
+<!DOCTYPE html />
+ 
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <title>언제나 휴일 - 목록</title>
+    <style>
+        header
+        {
+            height:40px;
+            width:800px;
+            background-color:White;
+            color:Green;
+            text-align:center;
+            font-size:xx-large;
+            font-weight:bold;
+        }
+        table
+        {
+            width:800px;
+            height:300px;
+            border-width:medium;
+            border-style:inset;
+            text-align:center;
+            
+        }
+        caption
+        {
+            width:100%;
+            height:30px;
+            color:Navy;            
+            background-color:Orange;            
+            font-size:xx-large;
+            font-weight:bold;
+            text-align:center;                        
+        }
+        thead
+        {
+            height:30px;
+            color:White;
+            background-color:Green;
+            font-size:large;
+            font-weight:bold;
+            text-align:center;   
+        }            
+        tfoot
+        {
+            height:30px;
+            color:White;
+            background-color:Green;
+            font-size:small;            
+            text-align:center;   
+        }            
+            
+        tbody
+        {
+            background-color:Green;
+            color:White;
+            border-color:Black;
+        }
+            
+        footer
+        {   
+            width:800px;
+            text-align:center;            
+        }       
+        .style_s1
+        {
+            width:25%;
+            background-color:Maroon;
+            color:White;
+            font-weight:bold;           
+            
+        }
+            
+    </style>
+</head>
+<body>    
+    <header>
+        <p>HTML 테이블</p>
+    </header>
+    <section>
+        <table>
+            <caption>인물에 관한 책</caption>
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>저자</th>
+                    <th>출판사</th>
+                    <th>가격</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td colspan="4">세계사와 함께 읽는 한국사도 읽어보세요.</td>
+                </tr>
+            </tfoot>            
+            <tbody>
+                <tr>
+                    <td class="style_s1">인물로 보는 삼국사</td>
+                    <td>정구복</td>
+                    <td rowspan="3">시아</td>
+                    <td rowspan="3">14000원</td>
+                </tr>
+                <tr>
+                    <td class="style_s1">인물로 보는 고려사</td>
+                    <td>송은명</td>
+                </tr>
+                <tr>
+                    <td class="style_s1">인물로 보는 조선사</td>
+                    <td>김형광</td>                    
+                </tr>                
+            </tbody>
+        </table>
+    </section>    
+    <footer>
+        <p>Copyright 2015 언제나 휴일 ehclub.co.kr</p>      
+    </footer>
+</body>
+</html>
