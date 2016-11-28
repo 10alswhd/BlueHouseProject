@@ -1,0 +1,68 @@
+<!DOCTYPE html />
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <title>언제나 휴일 - 목록</title>
+    <style>
+        section h3
+        {
+            background-color:Aqua;
+            color:Red;
+        }
+            
+        footer
+        {
+            margin:10px;
+            clear:both;
+            text-align:center;
+        }
+        .style_ul
+        {
+            background-color:White;
+            color:Green;
+        }
+        .style_ol
+        {
+            background-color:Green;
+            color:White;
+        }        
+        article dt
+        {
+            font-weight:bold;
+        }
+            
+    </style>
+</head>
+<body>    
+    <section>
+        <article id="use_ul" class="style_ul">
+            <h3>ul 태그 사용</h3>
+            <ul class="style_ul">
+                <li>하나</li>
+                <li>둘</li>
+                <li>셋</li>
+            </ul>              
+        </article>
+        <article id="use_ol" class="style_ol">
+            <h3>ol 태그 사용</h3>
+            <ol class="style_ol">
+                <li>하나</li>
+                <li>둘</li>
+                <li>셋</li>
+            </ol>              
+        </article>
+        <article id="use_dl">
+            <h3>dl 태그 사용</h3>
+            <dl class="style_ul">
+                <dt>수</dt>
+                <dd>하나</dd>
+                <dd>둘</dd>
+                <dd>셋</dd>
+            </dl>              
+        </article>
+    </section>    
+    <footer>
+        <p>Copyright 2015 언제나 휴일 ehclub.co.kr</p>      
+    </footer>
+</body>
+</html>
