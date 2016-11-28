@@ -1,0 +1,78 @@
+<!DOCTYPE html />
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <title>언제나 휴일 - 프로그램 코드</title>
+    <style>
+        section h2
+        {
+            background-color:Aqua;
+            color:Red;
+        }
+            
+        footer
+        {
+            margin:10px;
+            clear:both;
+            text-align:center;
+        }
+        .style_a
+        {
+            background-color:White;
+            color:Green;
+        }
+        .style_b
+        {
+            background-color:Green;
+            color:White;
+        }
+            
+    </style>
+</head>
+<body>    
+    <section>
+        <article id="use_p_tag" class="style_a">
+            <h2>하노이 타워 - p 태크 사용</h2>
+              <p>        
+int main(void)
+{
+    hanoi("A", "B", "C", 16);
+}
+void Hanoi(const char *src, const char *use, const char *dest, int n)
+{
+    if(n<=0)
+    {
+        return;
+    }
+    Hanoi(src,dest,use,n-1);
+    printf("move %s -> %s\n",src,dest);
+    Hanoi(use,src,dest,n-1);
+}
+        </p>
+        </article>
+        <article id="use_pre_tag">
+        <h2>하노이 타워 - pre 태크 사용</h2>
+        <pre class="style_b">            
+int main(void)
+{
+    hanoi("A", "B", "C", 16);
+}
+void Hanoi(const char *src, const char *use, const char *dest, int n)
+{
+    if(n<=0)
+    {
+        return;
+    }
+    Hanoi(src,dest,use,n-1);
+    printf("move %s -> %s\n",src,dest);
+    Hanoi(use,src,dest,n-1);
+}
+        </pre>
+        </article>
+        
+    </section>    
+    <footer>
+        <p>Copyright 2015 언제나 휴일 ehclub.co.kr</p>      
+    </footer>
+</body>
+</html>
