@@ -1,0 +1,132 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
+
+/**
+ * parses "[ a , b , c ]" into an array.
+ * requirements:
+ *  * first character must be a '['
+ *  * subsequent characters until closing ']' must be `unsigned integer`,
+ *    seperated by ','. Leading and trailing whitespace ignored.
+ *
+ * @return:
+ *  * 0 on success
+ *  * 1 if not len elements were found
+ */
+int parse_uint_array(size_t len, unsigned int *maxval, unsigned int array[len],
+		char *input)
+{
+	*maxval = 0;
+	/* start at 1 to skip leading '[' */
+	unsigned int pos = 1;
+	for (size_t i = 0; i < len; i++)
+	{
+		int ccount;
+		int n = sscanf(&input[pos], " %u , %n", &array[i],
+				&ccount);
+		if (n != 1 && i < len) return 1;
+		if (array[i] > *maxval) *maxval = array[i];
+		pos += ccount;
+	}
+	return 0;
+}
+
+void print_uint_array(size_t len, unsigned int array[len])
+{
+	printf("[");
+	for (size_t i = 0; i+1 < len; i++) {
+		printf("%u, ", array[i]);
+	}
+	printf("%u]\n", array[len-1]);
+}
+
+/**
+ * sorts an array of len size with maximum value maxval (can be less) which has
+ * to be < UINT_MAX
+ *
+ * @returns
+ *  * 1 if maxval+1 = 0, ie. usually maxval = UINT_MAX.
+ *    This limitation is due to how counting sort works
+ *  * 2 if malloc fails
+ *  * 3 if an element is bigger than specified maxval
+ */
+int countsort_uint(size_t len, unsigned int maxval, unsigned int array[len])
+{
+	if (maxval+1 == 0) return 1;
+
+	size_t *counts = calloc((maxval+1), sizeof(size_t));
+	if (counts == NULL) {
+		perror("calloc");
+		return 2;
+	}
+
+	for (size_t i = 0; i < len; i++) {
+		if (array[i] > maxval) return 3;
+		counts[array[i]] += 1;
+	}
+
+	size_t pos = 0;
+	for (size_t i = 0; i < (maxval+1); i++) {
+		for (size_t j = pos; j < counts[i]+pos; j++) {
+			assert(counts[i]+pos <= len);
+			array[j] = i;
+		}
+		pos += counts[i];
+	}
+	assert(pos == len);
+
+	free(counts);
+
+	return 0;
+}
+
+int main(int argc, char *argv[])
+{
+	if (argc < 3) {
+		fprintf(stderr, "not enough parameters supplied\n");
+		return 1;
+	}
+
+	size_t len; if (sscanf(argv[1], "%zu", &len) != 1) return 2;
+	if (len == 0) {
+		fprintf(stderr, "length shouldn't be 0\n");
+		return 4;
+	}
+
+	unsigned int *array = calloc(len, sizeof(int));
+	if (array == NULL) {
+		perror("calloc");
+		return 6;
+	}
+
+	unsigned int max;
+	{
+		int err;
+		if ( (err = parse_uint_array(len, &max, array, argv[2])) ) {
+			fprintf(stderr, "parse_uint_array: returned %d\n", err);
+
+			switch (err) {
+			case 1:
+				fprintf(stderr, "malformed array or less elements than specified\n");
+				break;
+			default:
+				fprintf(stderr, "unknown error\n");
+				break;
+			}
+
+			return 7;
+		}
+	}
+
+	print_uint_array(len, array);
+
+	{
+		int err;
+		if ( (err = countsort_uint(len, max, array)) ) {
+			fprintf(stderr, "countsort_uint: returned %d\n", err);
+			return 8;
+		}
+	}
+
+	print_uint_array(len, array);
+}
