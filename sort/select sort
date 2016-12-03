@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+void select_sort(int arr[], int len)
+{
+	int j=0, i=0, temp=0,small=0;
+	for(j=0;j<len-2;j++)
+	{
+		small=j;
+		for(i=j+1;i<len-1;i++)
+		{
+			if(arr[i]<arr[small])
+				small=i;
+		}
+		if(small!=j)
+		{
+			temp=arr[small];
+			arr[small]=arr[j];
+			arr[j]=temp;
+		}
+	}
+}
+
+int main(int argc, char** argv)
+{
+	int arr[]={3,4,2,7,0,8,6,2,4,3,6,8,2,5,9,222,34,-33,234};
+	int len=sizeof(arr)/sizeof(int);
+	int i=0;
+
+	select_sort(arr,len);
+	
+	for(i=0;i<19;i++)
+		printf("%d ", arr[i]);
+	printf("\n");
+	return 0;
+}
