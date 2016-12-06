@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+	android:orientation="vertical" android:background="@drawable/bei2">
+	
+	<View android:layout_width="fill_parent" android:layout_height="20dp"/>
+	<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+	<LinearLayout 
+	android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+	android:orientation="horizontal">
+	
+	<View android:layout_width="4dp" android:layout_height="fill_parent" android:background="#ffffff"/>
+	
+	
+	
+	<LinearLayout 
+	android:layout_width="170dp"
+    android:layout_height="wrap_content"
+	android:orientation="vertical">
+	
+	
+	<TextView android:id="@+id/disc_TiTxt"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:textSize="30dp" 
+		android:text="1" 
+		android:textColor="#ffffff" 
+		android:layout_gravity="center"
+	
+	/>
+	
+	</LinearLayout>
+	<View android:layout_width="4dp" android:layout_height="fill_parent" android:background="#ffffff"/>
+	
+	
+	<LinearLayout android:layout_width="67dp"
+    android:layout_height="wrap_content"
+	android:orientation="vertical">
+	
+	
+	<TextView android:id="@+id/disc_TiTxt"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:textSize="30dp" 
+		android:text="최대" 
+		android:textColor="#ffffff" 
+		android:layout_gravity="center"
+	
+	/>
+	</LinearLayout>
+	<View android:layout_width="4dp" android:layout_height="fill_parent" android:background="#ffffff"/>
+	
+	<LinearLayout android:layout_width="67dp"
+    android:layout_height="wrap_content"
+	android:orientation="vertical">
+	
+	
+	<TextView android:id="@+id/disc_TiTxt"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:textSize="30dp" 
+		android:text="최소" 
+		android:textColor="#ffffff" 
+		android:layout_gravity="center"
+	
+	/>
+	
+	</LinearLayout>
+	
+	<View android:layout_width="4dp" android:layout_height="fill_parent" android:background="#ffffff"/>
+</LinearLayout>
+<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+
+<!--  여기부터 변하는 숫자와 버튼들.  -->
+<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+android:orientation="horizontal">
+
+<View android:layout_width="4dp" android:layout_height="fill_parent" android:background="#ffffff"/>
+
+
+	<LinearLayout android:layout_width="170dp" android:layout_height="wrap_content" 
+	android:orientation="vertical">
+	
+	
+	
+	<TextView android:id="@+id/disc_txt1"
+		android:layout_width="wrap_content" android:layout_height="48dp"
+		android:textSize="24dp" 
+		android:text="  " 
+		android:textColor="#ffffff" 
+		android:layout_gravity="center"
+		android:gravity="center"
+	
+	/>
+	<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+	
+	<TextView android:id="@+id/disc_txt2"
+		android:layout_width="wrap_content" android:layout_height="48dp"
+		android:textSize="24dp" 
+		android:text="  " 
+		android:textColor="#ffffff" 
+		android:layout_gravity="center"
+		android:gravity="center"
+	
+	/>
+	<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+	
+	<TextView android:id="@+id/disc_txt3"
+		android:layout_width="wrap_content" android:layout_height="48dp"
+		android:textSize="24dp" 
+		android:text="  " 
+		android:textColor="#ffffff" 
+		android:layout_gravity="center"
+		android:gravity="center"
+	
+	/>
+	<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+	
+	<TextView android:id="@+id/disc_txt4"
+		android:layout_width="wrap_content" android:layout_height="48dp"
+		android:textSize="24dp" 
+		android:text="  " 
+		android:textColor="#ffffff" 
+		android:layout_gravity="center"
+		android:gravity="center"
+	
+	
+	/>
+	<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+	
+	</LinearLayout>
+<View android:layout_width="4dp" android:layout_height="fill_parent" android:background="#ffffff"/>
+
+	<RadioGroup android:layout_width="68dp" android:layout_height="wrap_content" android:id="@+id/disc_Rbt1">
+	
+		<RadioButton android:layout_width="wrap_content" android:layout_height="48dp"
+		android:layout_gravity="center" android:id="@+id/disc_bb1" />
+		
+		<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+		
+		<RadioButton android:layout_width="wrap_content" android:layout_height="48dp"
+		android:layout_gravity="center" android:id="@+id/disc_bb2"/>
+		
+		<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+		
+		<RadioButton android:layout_width="wrap_content" android:layout_height="48dp"
+		android:layout_gravity="center" android:id="@+id/disc_bb3"/>
+		
+		<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+		
+		<RadioButton android:layout_width="wrap_content" android:layout_height="48dp"
+		android:layout_gravity="center" android:id="@+id/disc_bb4"/>
+		
+		<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+	
+	</RadioGroup>
+
+<View android:layout_width="4dp" android:layout_height="fill_parent" android:background="#ffffff"/>
+
+	<RadioGroup android:layout_width="66dp" android:layout_height="wrap_content" android:id="@+id/disc_Rbt2">
+	
+		<RadioButton android:layout_width="wrap_content" android:layout_height="48dp"
+		android:layout_gravity="center" android:id="@+id/disc_bn1"/>
+		
+		<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+		
+		<RadioButton android:layout_width="wrap_content" android:layout_height="48dp"
+		android:layout_gravity="center" android:id="@+id/disc_bn2"/>
+		
+		<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+		
+		<RadioButton android:layout_width="wrap_content" android:layout_height="48dp"
+		android:layout_gravity="center" android:id="@+id/disc_bn3"/>
+		
+		<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+		
+		<RadioButton android:layout_width="wrap_content" android:layout_height="48dp"
+		android:layout_gravity="center" android:id="@+id/disc_bn4"/>
+		
+		<View android:layout_width="fill_parent" android:layout_height="4dp" android:background="#ffffff"/>
+	
+	</RadioGroup>
+
+
+<View android:layout_width="4dp" android:layout_height="fill_parent" android:background="#ffffff"/>
+</LinearLayout>
+
+
+	<Button android:layout_width="80dp" android:layout_height="wrap_content" 
+	android:layout_gravity="center"
+	android:text=" 다 음 " android:id="@+id/disc_bt1" android:layout_marginTop="30dp"/>
+	
+	<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:id="@+id/disc_adView" android:orientation="vertical" android:layout_marginTop="60dp">
+		</LinearLayout>
+
+</LinearLayout>
+
+
