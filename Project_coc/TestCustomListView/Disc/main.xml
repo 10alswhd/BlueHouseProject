@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:id="@+id/main_layout">
+
+	<LinearLayout android:orientation="vertical"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_alignParentTop="true" android:id="@+id/main_layout2">
+		
+	</LinearLayout>
+
+
+
+
+	<TextView android:id="@+id/main_text" android:layout_width="wrap_content"
+		android:layout_height="150dp" android:text="DISC" android:textColor="#00ff00"
+		android:textSize="50dp" android:layout_centerInParent="true"
+		android:layout_marginTop="60dp" android:layout_alignParentTop="true" />
+
+	<TextView android:id="@+id/main_text2" android:layout_width="wrap_content"
+		android:layout_height="80dp" android:text="행 동 유 형" android:textColor="#00ff00"
+		android:textSize="50dp" android:layout_below="@id/main_text"
+		android:layout_centerInParent="true" />
+
+
+	<TextView android:layout_width="wrap_content"
+		android:layout_height="80dp" android:text="검사프로그램" android:textColor="#00ff00"
+		android:textSize="50dp" android:layout_below="@id/main_text2"
+		android:layout_centerInParent="true" />
+
+	<TextView android:layout_width="wrap_content"
+		android:layout_height="50dp" android:text="화면 터치~" android:textColor="#00ff00"
+		android:textSize="30dp" android:layout_alignParentBottom="true"
+		android:layout_marginBottom="50dp" android:layout_centerInParent="true" />
+	<Button android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="사용방법" android:id="@+id/main_bt"
+		android:layout_alignParentBottom="true" android:layout_centerInParent="true"
+		android:onClick="oon" />
+
+
+</RelativeLayout>
