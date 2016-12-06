@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:background="@drawable/bei2" android:orientation="vertical">
+
+<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+	 android:orientation="vertical" android:id="@+id/endadview" >
+	
+	 
+	 </LinearLayout>
+
+
+<ScrollView android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+	<TableLayout android:stretchColumns="1"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:scrollbars="vertical">
+
+
+
+
+
+
+
+		<TableRow android:layout_marginTop="20dp"
+			android:layout_height="5dp">
+
+			<View android:layout_marginLeft="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+			<View android:layout_width="fill_parent" android:layout_height="5dp"
+				android:background="#ffffff" />
+
+
+			<View android:layout_marginRight="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+
+		</TableRow>
+
+		<TableRow>
+
+			<View android:layout_width="1dp" android:layout_height="230dp"
+				android:layout_marginLeft="15dp" android:background="#ffffff" />
+
+			<RelativeLayout android:layout_width="fill_parent"
+				android:layout_height="fill_parent" android:id="@+id/Disc_endMydisc" />
+
+
+			<View android:layout_width="1dp" android:layout_height="230dp"
+				android:layout_marginRight="15dp" android:background="#ffffff" />
+
+
+
+
+
+
+
+		</TableRow>
+
+		<TableRow android:layout_height="5dp">
+
+			<View android:layout_marginLeft="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+			<View android:layout_width="fill_parent" android:layout_height="5dp"
+				android:background="#ffffff" />
+
+
+			<View android:layout_marginRight="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+
+		</TableRow>
+
+
+		<TableRow android:layout_marginTop="5dp"
+			android:layout_height="50dp">
+
+			<View android:layout_width="20dp" android:layout_height="50dp" />
+
+			<LinearLayout android:layout_width="wrap_content"
+				android:layout_height="50dp" android:orientation="vertical">
+
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="25dp" android:text="내가 생각하는 나의 행동 패턴"
+					android:textColor="#ffffff" android:textSize="20dp"
+					android:layout_marginLeft="8dp" />
+
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="25dp" android:text="부정응 지수 :"
+					android:textColor="#ff111f" android:textSize="20dp"
+					android:layout_marginLeft="8dp" android:textStyle="normal"
+					android:id="@+id/Disc_endMydisc_Text" />
+
+
+			</LinearLayout>
+
+			<View android:layout_width="20dp" android:layout_height="50dp" />
+
+		</TableRow>
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<TableRow android:layout_marginTop="20dp"
+			android:layout_height="5dp">
+
+			<View android:layout_marginLeft="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+			<View android:layout_width="fill_parent" android:layout_height="5dp"
+				android:background="#ffffff" />
+
+
+			<View android:layout_marginRight="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+
+		</TableRow>
+
+		<TableRow>
+
+			<View android:layout_width="1dp" android:layout_height="230dp"
+				android:layout_marginLeft="15dp" android:background="#ffffff" />
+
+			<RelativeLayout android:layout_width="fill_parent"
+				android:layout_height="fill_parent" android:id="@+id/Disc_endyourdisc" />
+
+			<View android:layout_width="1dp" android:layout_height="230dp"
+				android:layout_marginRight="15dp" android:background="#ffffff" />
+
+
+
+
+
+
+
+		</TableRow>
+
+		<TableRow android:layout_height="5dp">
+
+			<View android:layout_marginLeft="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+			<View android:layout_width="fill_parent" android:layout_height="5dp"
+				android:background="#ffffff" />
+
+
+			<View android:layout_marginRight="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+
+		</TableRow>
+
+
+		<TableRow android:layout_marginTop="5dp"
+			android:layout_height="50dp">
+
+			<View android:layout_width="20dp" android:layout_height="50dp" />
+
+			<LinearLayout android:layout_width="wrap_content"
+				android:layout_height="50dp" android:orientation="vertical">
+
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="25dp" android:text="남이생각하는 나의 행동 패턴"
+					android:textColor="#ffffff" android:textSize="20dp"
+					android:layout_marginLeft="8dp" />
+
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="25dp" android:text="부정응 지수 :"
+					android:textColor="#ff111f" android:textSize="20dp"
+					android:layout_marginLeft="8dp" android:textStyle="normal"
+					android:id="@+id/Disc_endyourdisc_Text" />
+
+
+			</LinearLayout>
+
+			<View android:layout_width="20dp" android:layout_height="50dp" />
+
+		</TableRow>
+
+
+
+
+
+
+
+
+		<TableRow android:layout_marginTop="20dp"
+			android:layout_height="5dp">
+
+			<View android:layout_marginLeft="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+			<View android:layout_width="fill_parent" android:layout_height="5dp"
+				android:background="#ffffff" />
+
+
+			<View android:layout_marginRight="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+
+		</TableRow>
+
+		<TableRow>
+
+			<View android:layout_width="1dp" android:layout_height="230dp"
+				android:layout_marginLeft="15dp" android:background="#ffffff" />
+
+			<RelativeLayout android:layout_width="fill_parent"
+				android:layout_height="fill_parent" android:id="@+id/Disc_endexdisc" />
+
+			<View android:layout_width="1dp" android:layout_height="230dp"
+				android:layout_marginRight="15dp" android:background="#ffffff" />
+
+
+
+
+
+
+
+		</TableRow>
+
+		<TableRow android:layout_height="5dp">
+
+			<View android:layout_marginLeft="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+			<View android:layout_width="fill_parent" android:layout_height="5dp"
+				android:background="#ffffff" />
+
+
+			<View android:layout_marginRight="15dp" android:layout_width="5dp"
+				android:layout_height="5dp" android:background="#ffffff" />
+
+
+		</TableRow>
+
+
+
+		<TableRow android:layout_marginTop="5dp"
+			android:layout_height="50dp">
+
+			<View android:layout_width="20dp" android:layout_height="50dp" />
+
+
+			<LinearLayout android:layout_width="wrap_content"
+				android:layout_height="50dp" android:orientation="vertical">
+
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="25dp" android:text="실제 나의 행동 패턴"
+					android:textColor="#ffffff" android:textSize="20dp"
+					android:layout_marginLeft="8dp" />
+
+
+			</LinearLayout>
+
+			<View android:layout_width="20dp" android:layout_height="50dp" />
+
+		</TableRow>
+
+
+		<TableRow>
+
+			<View android:layout_height="50dp" />
+
+			<LinearLayout android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:orientation="horizontal"
+				android:gravity="center">
+
+				<Button android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:text=" D 형 "
+					android:layout_marginLeft="5dp" android:id="@+id/Disc_enddiscD"
+					android:textSize="18dp" android:onClick="onon"/>
+
+				<Button android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:text=" I 형 "
+					android:layout_marginLeft="5dp" android:id="@+id/Disc_enddiscI"
+					android:textSize="18dp" android:onClick="onon"/>
+
+				<Button android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:text=" S 형 "
+					android:layout_marginLeft="5dp" android:id="@+id/Disc_enddiscS"
+					android:textSize="18dp" android:onClick="onon"/>
+
+				<Button android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:text=" C 형 "
+					android:layout_marginLeft="5dp" android:id="@+id/Disc_enddiscC"
+					android:textSize="18dp" android:onClick="onon"/>
+
+
+			</LinearLayout>
+			<View android:layout_height="50dp" />
+
+		</TableRow>
+
+		<TableRow android:layout_marginTop="100dp">
+
+		</TableRow>
+
+
+
+
+
+	</TableLayout>
+
+
+
+
+
+
+</ScrollView>
+	
+</LinearLayout>
