@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<ScrollView android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+
+
+		<LinearLayout android:orientation="vertical"
+			android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+			<ImageView android:src="@drawable/help"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical" />
+
+			<View android:layout_width="fill_parent" android:layout_height="5dp"
+				android:background="#ffffffff" android:layout_marginTop="10dp" />
+
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="#ffffff"
+				android:layout_marginTop="10dp"
+				android:text="[DISC란]\n
+일반적으로 사람들은 태어나서부터 성장하여 현재에 이르기까지 자기 나름대로의 독특한 동기요인에 의해 선택적으로 일정한 방식으로 행동을 취하게 된다. 
+그것은 하나의 경향성을 이루게 되어 자신이 일하고 있거나 생활하고 있는 환경에서 아주 편안한 상태로 자연스럽게 그러한 행동을 하게 된다.
+우리는 그것을 행동 패턴(Behavior Pattern) 또는 행동 스타일(Behavior Style) 이라고 한다." />
+
+
+			<View android:layout_width="fill_parent" android:layout_height="5dp"
+				android:background="#ffffffff" android:layout_marginTop="10dp" />
+
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="#ffffff"
+				android:layout_marginTop="10dp"
+				android:text="총 28 항목 이 있고 매 항목마다 4가지 선택 사항이 있습니다
+4가지 선택사항중 자신과 제일 가깝다고 생각이 되는 항목은 [최대] 란에 있는 버튼을 클릭하여 주시고
+자신과 제일 멀다라고 느껴지는 항목은 [최소] 라는 항목의 버튼을 눌러 주세요. " />
+
+			<View android:layout_width="fill_parent" android:layout_height="5dp"
+				android:background="#ffffffff" android:layout_marginTop="10dp" />
+
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="#ffffff"
+				android:layout_marginTop="10dp"
+				android:text="DISC 는 생각 없이 하는 테스트 입니다. 길게 생각 하면 모든게 다 자신과 멀기도 하고 
+또한 모든게 자신과 가깝게 느껴지니 생각 없이 빠르고 신속하게 [최대] 와 [최소] 를 누르고 아래에 있는 다음버튼을 클릭하여 다음 항목으로 넘어가시기 바랍니다. 
+사람은 환경에 적응하는 동물이다 보니 환경이 변하고 몸이 적응을 하면 테스트 결과 또한 달라질수 있습니다." />
+
+
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:background="#ffffffff"
+				android:layout_marginTop="10dp" android:text="차트 보는법" android:textColor="#ff000000"/>
+
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="#ffffff"
+				android:layout_marginTop="10dp"
+				android:text="항목 선택을 완료 하면 차트가 세개 나오는데요. 맨위차트는 내가 생각하는 나의 성격입니다.
+그 아래차트는 남들이 저를 어떻게 생각 하는지 나오고요. 맨아래가 실제나의 성격 입니다. 
+차트가 제일 높이 있는게 자신의 유형입니다. 그 다음으로 높은게 자신의 2차 유형이고요. 
+유형별 설명은 차트 맨 하단에서 볼수 있습니다.  " />
+
+<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:background="#ffffffff"
+				android:layout_marginTop="10dp" android:text="부적응지수" android:textColor="#ff000000"/>
+
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="#ffffff"
+				android:layout_marginTop="10dp"
+				android:text="부적응 지수는 현재 이 환경에 부적응 정도를 나타낸다고 합니다. 
+3이하는 양호한 것이지만 3이상으로 넘어가면 현재 생활에 적응을 못하는거라고 하네요." />
+		</LinearLayout>
+
+	</ScrollView>
+</LinearLayout>
