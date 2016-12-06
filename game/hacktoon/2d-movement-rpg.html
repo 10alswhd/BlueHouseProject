@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RPG 2D tiled</title>
+</head>
+
+<body>
+<canvas id="game"></canvas>
+
+<script>
+    var canvas = document.getElementById("game");
+    var ctx = canvas.getContext("2d");
+    var log = console.log;
+    
+    var LEFT = 37;
+    var RIGHT = 39;
+    var UP = 38;
+    var DOWN = 40;
+    
+    var grid = [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    ];
+    var tilesize = 40;
+    var gridw = grid[0].length;
+    var gridh = grid.length;
+    canvas.width = gridw * tilesize;
+    canvas.height = gridh * tilesize;
+    var hero = {x:162, y:100, width:30, height:30, speed:5, jump:0};
+    var dirx = 0;
+    var diry = 0;
+    
+    var time_elapsed = undefined;
+    var fps = 24;
+    
+    document.onkeydown = function(e)
+    {
+        if(e.keyCode == LEFT){
+            dirx = -1;
+        }
+        if(e.keyCode == RIGHT){
+            dirx = 1;
+        }
+        if(e.keyCode == UP){
+            diry = -1;
+        }
+        if(e.keyCode == DOWN){
+            diry = 1;
+        }
+    }
+    document.onkeyup = function(e){
+        if(e.keyCode == UP || e.keyCode == DOWN){
+            diry = 0;
+        }
+        if(e.keyCode == LEFT || e.keyCode == RIGHT){
+            dirx = 0;
+        }
+    }
+    var draw = function(){
+        //desenha o cenario
+        for(var i = 0; i < gridh; i++){
+            for(var j = 0; j < gridw; j++){
+                ctx.beginPath();
+                ctx.fillStyle = "black";
+                ctx.strokeStyle = "black";
+                if (grid[i][j] === 0){
+                    ctx.fillStyle = "white";
+                    ctx.rect(j*tilesize, i*tilesize, tilesize, tilesize);
+                }
+                if (grid[i][j] === 1){
+                    ctx.rect(j*tilesize, i*tilesize, tilesize, tilesize);
+                }
+                ctx.fill();
+                ctx.stroke();
+            }
+        }
+        //desenha o personagem
+        ctx.beginPath();
+        ctx.fillStyle = "blue";
+        ctx.rect(hero.x, hero.y, hero.width, hero.height);
+        ctx.fill();
+    }
+    var movement = function(){
+        if(dirx == 0 && diry == 0)
+            return;
+            
+        //dx, dy = posicao após movimento
+        var dx = hero.speed * dirx;
+        var dy = hero.speed * diry;
+        //four corners of hero
+        var hero_xleft = Math.floor((hero.x + 1) / tilesize);
+        var hero_xright = Math.floor((hero.x + hero.width - 1) / tilesize);
+        var hero_ytop = Math.floor((hero.y + 1) / tilesize);
+        var hero_ybottom = Math.floor((hero.y + hero.height - 1) / tilesize);
+        var xblocked = false;
+        var yblocked = false;
+        
+        if(dirx != 0){
+            if(dirx > 0)
+                var blockx = Math.floor((hero.x + hero.width + dx - 1) / tilesize);
+            else
+                var blockx = Math.floor((hero.x + dx) / tilesize);
+            for(var i = hero_ytop; i <= hero_ybottom; i++){
+                if(grid[i][blockx] == 1){
+                    xblocked = true;
+                    break;
+                }
+            }
+            if(xblocked){
+                if(dirx > 0)
+                    hero.x = blockx * tilesize - hero.width;
+                if (dirx < 0){
+                    hero.x = blockx * tilesize + tilesize;
+                }
+            } else {
+                hero.x += dx;
+            }
+        
+        }
+        if(diry != 0){
+            if(diry > 0)
+                var blocky = Math.floor((hero.y + hero.height + dy - 1) / tilesize);
+            else
+                var blocky = Math.floor((hero.y + dy) / tilesize);
+            
+            for(var i = hero_xleft; i <= hero_xright; i++){
+                if(grid[blocky][i] == 1){
+                    yblocked = true;
+                    break;
+                }
+            }
+            if(yblocked){
+                if(diry > 0)
+                    hero.y = blocky * tilesize - hero.height;
+                if (diry < 0)
+                    hero.y = blocky * tilesize + tilesize;
+            } else {
+                hero.y += dy;
+            }
+        }
+    }
+    var update = function()
+    {
+        movement();
+        draw();
+        
+        var x = new Date();
+        var time_passed = x.getTime() - time_elapsed;
+        fps = time_passed;
+        time_elapsed = x.getTime();
+    }
+    
+    var x = new Date();
+    time_elapsed = x.getTime();
+    setInterval(update, fps);
+   </script>
+   </body>
+</html>
