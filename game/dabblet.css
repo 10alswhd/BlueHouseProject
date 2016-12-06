@@ -1,0 +1,112 @@
+/**
+ * Tank display
+ */
+ 
+div.tank-display {
+	display: absolute;
+	width: 250px;
+}
+
+div.tank-display .circle {
+    position: absolute;
+    display: inline-block;
+    width: 200px;
+    height: 100px;
+    border-radius: 100%;
+}
+
+div.tank-display .top.circle {
+    background-color: red;
+    top: 100px;
+    left: 110px;
+}
+
+div.tank-display .bottom.circle {
+    background-color: red;
+    top: 200px;
+    left: 110px;
+}
+
+div.tank-display .rectangle {
+    position: absolute;
+    top: 150px;
+    left: 110px;
+    width: 200px;
+    height: 100px;
+    display: inline-block;
+    background: rgba(200, 0, 0, .5);
+}
+
+div.tank-display .outer-rectangle {
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	width: 220px;
+	height: 150px;
+	display: inline-block;
+	border-left: 2px solid grey;
+	border-right: 2px solid grey;
+}
+
+div.tank-display .outer-top {
+	border: 2px solid grey;
+    top: 50px;
+    width: 220px;
+    left: 100px;
+}
+
+div.tank-display .outer-bottom {
+	border: 2px solid grey;
+    top: 200px;
+    width: 220px;
+    left: 100px;}
+
+div.tank-display .transformed {
+    transform: matrix3d(1, 0, 0, 0, 0, 0.52, -0.85, 0, 0, 0.85, 0.52, 0, 0, 0, 0, 1);
+}
+
+div.tank-display .level-indicator-outer {
+	position: absolute;
+	display: inline-block;
+	left: 40px;
+	top: 100px;
+	width: 30px;
+	height: 150px;
+	border: 2px solid grey;
+}
+
+div.tank-display .level-indicator-outer .level-indicator-inner {
+	position: relative;
+	display: inline-block;
+	width: 20px;
+	top: 50px;
+	left: 5px;
+	height: 100px;
+	background: red
+}
+
+div.tank-display .level-indicator-outer .level-reading-max {
+	position: relative;
+	top:-125px;
+	left: -20px;
+	width: 20px;
+	border-bottom: 2px solid gray;
+	padding-bottom: 1px;
+}
+
+div.tank-display .level-indicator-outer .level-reading-mid {
+	position: relative;
+	top:-60px;
+	left: -20px;
+	width: 20px;
+	border-bottom: 2px solid gray;
+	padding-bottom: 1px;
+}
+
+div.tank-display .label {
+	position: relative;
+	left: 50%;
+	top: 280px;	
+	font-size: 1.5em;
+	color: grey;
+}
