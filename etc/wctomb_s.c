@@ -1,0 +1,22 @@
+ 
+#include <locale.h>
+#include <stdlib.h>
+#include <stdio.h>
+ 
+int main()
+{
+    char buffer[100];
+    int length;
+    int i, j;
+    wchar_t warr[10] = L"홍길동abc나비야";
+ 
+    setlocale(LC_ALL, "Korean");//로케일 설정
+    for (i = 0, j = 0; i<9; i++)
+    {
+        wctomb_s(&length,buffer + j,2, warr[i]);///와이드 문자를 멀티바이트 문자로 변환
+        j += length;
+    }
+    buffer[j] = 0;//종료 문자 설정
+    printf("%s\n", buffer);
+    return 0;
+}
