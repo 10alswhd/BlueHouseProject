@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--
+Matt Guest
+Code warmup for Nov 7, 2011
+http://mattguest.com/codewarmup/rpgprogressbar
+http://codewarmup.jessefreeman.com/2011/11/07/create-a-rpg-style-exp-progress-bar
+-->
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>RPG EXP Meter</title>
+	<meta name="author" content="Matthew Guest">
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cloud.github.com/downloads/SteveSanderson/knockout/knockout-1.2.1.js"></script>
+	
+	<style>
+	
+	.levelText {
+		padding-left: 10px;
+		font-family: verdana, arial, sans-serif;
+		font-size: 12px;
+		font-weight: bold;
+	}
+	
+	.progressWrap{
+	    position: relative;
+	}
+	.progressWrap, .progressValue, .progressText {
+	    width: 155px; height: 20px;
+	}
+	.progressWrap {
+	    background: #000 url(progressOutline.png) top left no-repeat;
+	}
+	
+	.progressValue {
+	    background: #880088 url(progressOutline.png) top left no-repeat;
+	}
+	.progressText {
+		font-family: verdana, arial, sans-serif;
+		font-size: 12px;
+		font-weight: bold;
+	    position: absolute;
+	    top:0; left:0;
+	    padding-top: 3px;
+	    color: #fff;
+	    text-align: center;
+	    width: 100%;
+	}	</style>
+
+</head>
+<body>
+	<div class="levelText" data-bind="text: 'Level ' + level()"></div>
+	<div class="progressWrap">
+  		<div class="progressValue" data-bind="style: { width:expProgressPercent }">
+  			<div class="progressText" data-bind="text: expText"></div>
+  		</div>
+	</div>
+	<br/><br/>
+	<button data-bind="click: function() { playerModel.increaseExp(20) }">Gain 20 Exp!</button>
+
+	<script type="text/javascript">
+	var playerModel = {
+		level: ko.observable(1),
+	    exp  : ko.observable(0),
+	    nextLevelExp: 100,
+	
+		increaseExp: function(val) {
+			this.exp(this.exp()+val);
+			if(this.exp() >= this.nextLevelExp) {
+				this.exp(this.exp() - this.nextLevelExp);
+				this.nextLevelExp = Math.round(this.nextLevelExp+(this.nextLevelExp*1.5));
+				this.level(this.level()+1);
+			}
+		}
+	};
+	
+	playerModel.expProgressPercent = ko.dependentObservable(function() {
+		var percent = 100 * (this.exp() / this.nextLevelExp);
+		return percent + "%";
+	}, playerModel);
+	
+	playerModel.expText = ko.dependentObservable(function() {
+		return this.exp() + "/" + this.nextLevelExp;
+	}, playerModel);
+	ko.applyBindings(playerModel);
+	
+	</script>
+</body>
+</html>
