@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body onkeydown="move()">
+<h1>html 5 Tank War </h1>
+
+<canvas id="tankMap" width="400px" height="300px" style="background-color:black"></canvas>
+<span id="aa">数据</span>
+<script type="text/javascript" src="TankGame.js"></script>
+<script type="text/javascript">
+    var canvas1 = document.getElementById("tankMap");
+    var cxt = canvas1.getContext("2d");
+    var Hero = new hero(40, 40, 0, herocolor);
+    var HeroMissile = null;
+    var HeroMissiles = new Array();
+    var enemies = new Array();
+    var enemyMissiles = new Array();
+    var bobms = new Array();
+    for (var i = 0; i < 3; i++) {
+        var enemytank = new enemyTank((i + 1) * 50, 0, 2, enemycolor);
+        enemies[i] = enemytank;
+        window.setInterval("enemies[" + i + "].run()", 50);
+        var EnemyMissile = new Missile(enemies[i].x + 9, enemies[i].y + 30, 2, 3, "enemy", enemies[i]);
+        enemyMissiles[i] = EnemyMissile;
+        var EnemyTimer=window.setInterval("enemyMissiles["+(enemyMissiles.length-1)+"].run()",50);
+        enemyMissiles[enemyMissiles.length-1].timer=EnemyTimer;
+    }
+    flushMap();
+    function flushMap() {
+        cxt.clearRect(0, 0, 400, 300);
+        draw(Hero);
+        drawMissile();
+        hitTanks();
+        drawEnemyMissile();
+        for (var i = 0; i < 3; i++) {
+            draw(enemies[i]);
+        }
+    }
+    function move() {
+        var key = event.keyCode;
+        switch (key) {
+            case 87:
+                Hero.moveUp();
+                break;
+            case 68:
+                Hero.moveRight();
+                break;
+            case 83:
+                Hero.moveDown();
+                break;
+            case 65:
+                Hero.moveLeft();
+                break;
+            case 74:
+                Hero.shotEnemy();
+                break;
+        }
+        flushMap();
+    }
+    window.setInterval("flushMap()", 100);    //定时间调用该函数
+</script>
+</body>
+
+</html>
