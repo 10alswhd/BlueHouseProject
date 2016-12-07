@@ -1,0 +1,359 @@
+<html>
+<head>
+<title>
+Handwritten asm.js Sudoku Solver
+</title>
+</head>
+<body>
+<textarea id="grid-entry" cols="18" rows="9">5 3 - - 7 - - - -
+6 - - 1 9 5 - - -
+- 9 8 - - - - 6 -
+8 - - - 6 - - - 3
+4 - - 8 - 3 - - 1
+7 - - - 2 - - - 6
+- 6 - - - - 2 8 -
+- - - 4 1 9 - - 5
+- - - - 8 - - 7 9</textarea>
+<br />
+<input type="button" id="grid-button" value="Check grid"></input>
+<br />
+<div id="results"> </div>
+<script>
+
+var Sudoku = (function (stdlib, foreign, heap) {
+    "use asm";
+
+    // contents is the first 81 bytes.
+    var contentPtr = 0;
+    var counterPtr = 81;
+    var permanentPtr = 810;
+    // counters is the next 729 bytes.
+    // permanence is the next 81 bytes.
+    var buf = new stdlib.Uint8Array(heap);
+    var imul = stdlib.Math.imul;
+
+    function getContents(row, col) {
+        row = row|0;
+        col = col|0;
+
+        return buf[(((row * 9)|0) + col + contentPtr)|0]|0;
+    }
+
+    function setContents(row, col, number) {
+        row = row|0;
+        col = col|0;
+        number = number|0;
+
+        buf[(((row * 9)|0) + col + contentPtr)|0] = number;
+    }
+
+    function resetContents(row, col, number) {
+        row = row|0;
+        col = col|0;
+        number = number|0;
+
+        var i = 0,
+            j = 0;
+
+        for (i = 0; (i|0) < 9; i = (i + 1)|0) {
+            for (j = 0; (j|0) < 9; j = (j + 1)|0) {
+                setContents(i, j, 0);
+                setPermanent(i, j, 0);
+            }
+        }
+    }
+
+    function getCounterIndex(row, col, number) {
+        row = row|0;
+        col = col|0;
+        number = number|0;
+
+        return ((((row * 9)|0) * 9)|0) + ((col * 9)|0) + number + counterPtr|0;
+    }
+
+    function getCounter(row, col, number) {
+        row = row|0;
+        col = col|0;
+        number = number|0;
+
+        // Yay, zero indexing
+        number = (number - 1)|0;
+
+        return buf[getCounterIndex(row, col, number)|0]|0;
+    }
+
+    function setCounter(row, col, number, newCount) {
+        row = row|0;
+        col = col|0;
+        number = number|0;
+        newCount = newCount|0;
+
+        // Zero represents the absence of a number and should be
+        //  ignored
+        if ((number|0) > 0) {
+            // But we're still zero indexing
+            number = (number - 1)|0;
+
+            buf[getCounterIndex(row, col, number)|0] = newCount;
+        }
+    }
+
+    // Increments the counter for a given cell possibly containing
+    // a number
+    function incrementCounter(row, col, number, increment) {
+        row = row|0;
+        col = col|0;
+        number = number|0;
+        increment = increment|0;
+
+        // Zero represents the absence of a number and should be
+        //  ignored
+        if ((number|0) > 0) {
+            // But we're still zero indexing
+            number = (number - 1)|0;
+
+            buf[getCounterIndex(row, col, number)|0] =
+                (buf[getCounterIndex(row, col, number)|0]|0) +
+                increment;
+        }
+    }
+
+    function zeroCounters() {
+        var i = 0,
+            j = 0,
+            k = 0;
+
+        for (i = 0; (i|0) < 9; i = (i + 1)|0) {
+            for (j = 0; (j|0) < 9; j = (j + 1)|0) {
+                for (k = 1; (k|0) <= 9; k = (k + 1)|0) {
+                    setCounter(i, j, k, 0);
+                }
+            }
+        }
+    }
+
+    function isPermanent(row, col) {
+        row = row|0;
+        col = col|0;
+
+        return buf[(((row * 9)|0) + col + permanentPtr)|0]|0;
+    }
+
+    function setPermanent(row, col, val) {
+        row = row|0;
+        col = col|0;
+        val = val|0;
+
+        buf[(((row * 9)|0) + col + permanentPtr)|0] = val;
+    }
+
+    function changeNumber(row, col, number, modifier) {
+        row = row|0;
+        col = col|0;
+        number = number|0;
+        modifier = modifier|0
+
+        var i = 0,
+            j = 0,
+            regionRow = 0,
+            regionCol = 0;
+
+        regionRow = ((((row|0)/3)|0) * 3)|0;
+        regionCol = ((((col|0)/3)|0) * 3)|0;
+
+        // Increment numbers on the same row
+        for (j = 0; (j|0) < 9; j = (j + 1)|0) {
+            // We must remember to not mark this spot
+            if (((j|0) != (col|0))) {
+                incrementCounter(row, j, number, modifier);
+            }
+        }
+
+        // Increments numbers on the same column
+        for (i = 0; (i|0) < 9; i = (i + 1)|0) {
+            if ((i|0) != (row|0)) {
+                incrementCounter(i, col, number, modifier);
+            }
+        }
+
+        // And numbers in the same region
+        for (i = regionRow; (i|0) < ((regionRow + 3)|0); i = (i + 1)|0) {
+            for (j = regionCol; (j|0) < ((regionCol + 3)|0); j = (j + 1)|0) {
+                if ((i|0) != (row|0) &
+                    (j|0) != (col|0)) {
+                    incrementCounter(i, j, number, modifier)
+                }
+            }
+        }
+    }
+
+    function insertNumber(row, col, number) {
+        row = row|0;
+        col = col|0;
+        number = number|0;
+
+        changeNumber(row, col, number, 1);
+    }
+
+    function removeNumber(row, col, number) {
+        row = row|0;
+        col = col|0;
+        number = number|0;
+        
+        changeNumber(row, col, number, -1);
+    }
+
+    // Checks that cell contents are consistent
+    function checkConsistency() {
+        var i = 0,
+            j = 0;
+
+        zeroCounters();
+
+        // Check the insertion of every cell into the grid
+        for (i = 0; (i|0) < 9; i = (i + 1)|0) {
+            for (j = 0; (j|0) < 9; j = (j + 1)|0) {
+                insertNumber(i, j, getContents(i, j)|0)
+                // If there is a value in the cell and
+                // it overlaps with other values, inconsistency!
+                if ((getContents(i, j)|0) > 0 &
+                    (getCounter(i, j, getContents(i, j)|0)|0) > 0) {
+                    return 0;
+                }
+            }
+        }
+
+        return 1;
+    }
+
+    function backtrack() {
+        var row = 0,
+            col = 0,
+            i = 0,
+            direction = 1,
+            startingPoint = 0,
+            index = 0;
+        
+        // Make sure that the input is consistent, while also
+        // priming the counters
+        if (!(checkConsistency()|0)) {
+            return 0;
+        }
+
+        // If we're not done
+        while ((index|0) >= 0 & (index|0) < 81) {
+            row = (index|0)/9|0;
+            col = (index|0)%9|0;
+            startingPoint = ((getContents(row, col)|0) + 1)|0;
+
+            // If this is a permanent cell, continue to the next
+            if (isPermanent(row, col)|0) {
+                index = (index + direction)|0;
+            } else {
+                // If we're backing up, then undo this value
+                if ((direction|0) == -1) {
+                    removeNumber(row, col, getContents(row, col)|0);
+                    setContents(row, col, 0);
+                }
+                // If we don't find a candidate, then we'll need to
+                //  backtrack
+                direction = -1;
+                // Test all possible values
+                for (i = startingPoint; (i|0) <= 9; i = (i + 1)|0) {
+                    // If i is a candidate for row,col
+                    if ((getCounter(row, col, i)|0) == 0) {
+                        // Try it out
+                        insertNumber(row, col, i);
+                        setContents(row, col, i);
+                        direction = 1;
+                        break;
+                    }
+                }
+                index = (index + direction)|0;
+            }
+        }
+
+        if ((index|0) < 0) {
+            return 0;
+        }
+
+        return 1;
+    }
+
+    return {
+        setContents: setContents,
+        getContents: getContents,
+        resetContents: resetContents,
+        checkConsistency: checkConsistency,
+        setPermanent: setPermanent,
+        backtrack: backtrack
+    }
+}(this, {}, new ArrayBuffer(0x1000)))
+
+function loadGrid(gridString) {
+    var i, j,
+        grid = gridString.trim().
+            split('\n').
+            map(function (rowString) {
+                return rowString.trim().
+                    split(" ");
+            });
+
+    Sudoku.resetContents();
+
+    if (grid.length === 9 && grid[0].length === 9) {
+        for (i = 0; (i|0) < 9; i = (i + 1)|0) {
+            for (j = 0; (j|0) < 9; j = (j + 1)|0) {
+                Sudoku.setContents(i, j, grid[i][j]|0);
+                if ((grid[i][j]|0) !== 0) {
+                    Sudoku.setPermanent(i, j, 1);
+                }
+            }
+        }
+    } else {
+        throw "Wrong size";
+    }
+}
+
+function readGrid() {
+    var i, j,
+        result = '';
+
+    for (i = 0; (i|0) < 9; i = (i + 1)|0) {
+        for (j = 0; (j|0) < 9; j = (j + 1)|0) {
+            result += Sudoku.getContents(i, j);
+            result += ' ';
+        }
+        result += '\n';
+    }
+
+    return result;
+}
+
+function checkGrid() {
+    var gridBox = document.getElementById('grid-entry'),
+        resultDiv = document.getElementById('results'),
+        loaded = false;
+
+    try {
+        loadGrid(gridBox.value);
+        loaded = true;
+    } catch (e) {
+        resultDiv.firstChild.nodeValue = e;
+    }
+
+    if (loaded) {
+        if (Sudoku.backtrack()) {
+            gridBox.value = readGrid();
+            resultDiv.firstChild.nodeValue = "Yes";
+        } else {
+            resultDiv.firstChild.nodeValue = "No";
+        }
+    }
+}
+
+document.getElementById("grid-button").addEventListener('click', checkGrid);
+
+</script>
+</body>
+</html>
