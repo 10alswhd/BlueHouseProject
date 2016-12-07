@@ -1,0 +1,211 @@
+.pacmancontainer{
+    position: relative;    
+    width: 600px;
+    height: 100px;
+    margin: 50px auto;
+    background-color: black;
+}
+.pacman{
+      transform:translateZ(0);
+      position: absolute;
+      top:20px;
+      left: 20px;
+      border-radius: 100%;
+      border: 30px solid #FFEE00;
+      border-right: 30px solid transparent;
+      -webkit-animation: pacman 5s linear 0s infinite;
+      animation:  pacman 5s linear 0s infinite  ;
+      -moz-animation: pacman 5s linear 0s infinite  ;
+       
+    }
+
+
+    /* Just change the values of border and border-right to resize 
+    and/or change colour of the pacman */
+
+    .pac2{
+      -webkit-animation: pacman2 5s linear 0s infinite  ;
+      animation: pacman2 5s linear 0s infinite  ;
+       -moz-animation: pacman2 5s linear 0s infinite  ;
+    }
+
+    @keyframes pacman{
+     0%,100% {
+    -webkit-transform: rotate(45deg)  ;
+            transform: rotate(45deg)  ; 
+
+          }
+
+      5% {
+      -webkit-transform: translateX(50px) rotate(0deg)  ;
+              transform: translateX(50px) rotate(0deg)  ; 
+            } 
+    15%{
+       -webkit-transform: translateX(150px) rotate(0deg)  ;
+              transform: translateX(150px) rotate(0deg)  ; 
+            }
+     25%{
+       -webkit-transform: translateX(250px) rotate(0deg)  ;
+              transform: translateX(250px) rotate(0deg)  ; 
+            }   
+     35%{
+       -webkit-transform: translateX(350px) rotate(0deg)  ;
+              transform: translateX(350px) rotate(0deg)  ; 
+            } 
+
+      45%{
+       -webkit-transform: translateX(450px) rotate(0deg)  ;
+              transform: translateX(450px) rotate(0deg)  ; 
+            } 
+     95% {
+      -webkit-transform: translateX(50px) rotate(0deg)  ;
+              transform: translateX(50px) rotate(0deg) rotateZ(180deg) ; 
+            } 
+     85%{
+       -webkit-transform: translateX(150px) rotate(0deg)  ;
+              transform: translateX(150px) rotate(0deg) rotateZ(180deg); 
+            }
+     75%{
+       -webkit-transform: translateX(250px) rotate(0deg)  ;
+              transform: translateX(250px) rotate(0deg) rotateZ(180deg) ; 
+            }   
+     65%{
+       -webkit-transform: translateX(350px) rotate(0deg)  ;
+              transform: translateX(350px) rotate(0deg)  rotateZ(180deg); 
+            } 
+
+     55%{
+       -webkit-transform: translateX(450px) rotate(0deg)  ;
+              transform: translateX(450px) rotate(0deg)  rotateZ(180deg); 
+            }      
+     10% {
+          -webkit-transform: translateX(100px) rotate(45deg) ;
+            transform: translateX(100px)  rotate(45deg);
+       }
+     20% {
+          -webkit-transform: translateX(200px) rotate(45deg)    ;
+            transform: translateX(200px) rotate(45deg)  ;
+       }
+     30% {
+          -webkit-transform: translateX(300px) rotate(45deg)  ;
+            transform: translateX(300px) rotate(45deg) ;
+       }
+     40% {
+    -webkit-transform: translateX(400px) rotate(45deg)  ;
+      transform: translateX(400px)  rotate(45deg) ;
+      }
+     
+     50% {
+    -webkit-transform:  translateX(500px) rotate(-180deg)   rotateZ(180deg);
+            transform:  translateX(500px) rotate(-180deg)   rotateZ(180deg);
+        }
+
+     60% {
+        -webkit-transform: translateX(400px) rotate(45deg)  ;
+          transform: translateX(400px) rotate(45deg) rotateZ(180deg) ;
+        }
+     70% {
+          -webkit-transform: translateX(300px) rotate(45deg) ;
+            transform: translateX(300px) rotate(45deg) rotateZ(180deg) ;
+       }
+      
+      80% {
+          -webkit-transform: translateX(200px)  rotate(45deg)  ;
+            transform: translateX(200px)  rotate(45deg) rotateZ(180deg) ;
+         } 
+      90% {
+        -webkit-transform: translateX(100px) rotate(45deg) ;
+          transform: translateX(100px) rotate(45deg) rotateZ(180deg) ;
+         }
+     }
+
+
+      @keyframes pacman2{
+     0%,100% {
+    -webkit-transform: rotate(-45deg)  ;
+            transform:  rotate(-45deg)  ; 
+          }
+      5% {
+      -webkit-transform: translateX(50px) rotate(0deg)  ;
+              transform: translateX(50px) rotate(0deg)  ; 
+            } 
+    15%{
+       -webkit-transform: translateX(150px) rotate(0deg)  ;
+              transform: translateX(150px) rotate(0deg)  ; 
+            }
+     25%{
+       -webkit-transform: translateX(250px) rotate(0deg)  ;
+              transform: translateX(250px) rotate(0deg)  ; 
+            }   
+     35%{
+       -webkit-transform: translateX(350px) rotate(0deg)  ;
+              transform: translateX(350px) rotate(0deg)  ; 
+            } 
+
+      45%{
+       -webkit-transform: translateX(450px) rotate(0deg)  ;
+              transform: translateX(450px) rotate(0deg)  ; 
+            }      
+     95% {
+      -webkit-transform: translateX(50px) rotate(0deg)  ;
+              transform: translateX(50px) rotate(0deg) rotateZ(180deg) ; 
+            } 
+    85%{
+       -webkit-transform: translateX(150px) rotate(0deg) ;
+              transform: translateX(150px) rotate(0deg) rotateZ(180deg) ; 
+            }
+     75%{
+       -webkit-transform: translateX(250px) rotate(0deg)  ;
+              transform: translateX(250px) rotate(0deg) rotateZ(180deg) ; 
+            }   
+     65%{
+       -webkit-transform: translateX(350px) rotate(0deg)  ;
+              transform: translateX(350px) rotate(0deg) rotateZ(180deg) ; 
+            } 
+
+     55%{
+       -webkit-transform: translateX(450px) rotate(0deg) ;
+              transform: translateX(450px) rotate(0deg) rotateZ(180deg) ; 
+            } 
+
+      10% {
+      -webkit-transform: translateX(100px) rotate(-45deg)  ;
+        transform: translateX(100px) rotate(-45deg) ;
+         }
+
+     20% {
+          -webkit-transform: translateX(200px) rotate(-45deg)   ;
+            transform: translateX(200px) rotate(-45deg)  ;
+       }
+     30% {
+          -webkit-transform: translateX(300px) rotate(-45deg) ;
+            transform: translateX(300px) rotate(-45deg) ;
+       }
+     40% {
+    -webkit-transform: translateX(400px)  rotate(-45deg) ;
+      transform: translateX(400px) rotate(-45deg)  ;
+      }
+     
+     50% {
+    -webkit-transform: translateX(500px)  rotate(-90deg)  rotateZ(180deg);
+            transform: translateX(500px)  rotate(-90deg)  rotateZ(180deg);
+        }
+
+     60% {
+        -webkit-transform: translateX(400px) rotate(-45deg)  ;
+          transform: translateX(400px) rotate(-45deg) rotateZ(180deg) ;
+        }
+     70% {
+          -webkit-transform: translateX(300px) rotate(-45deg) ;
+            transform: translateX(300px) rotate(-45deg)rotateZ(180deg) ;
+       }
+      
+      80% {
+          -webkit-transform: translateX(200px) rotate(-45deg)  ;
+            transform: translateX(200px) rotate(-45deg) rotateZ(180deg) ;
+         } 
+      90% {
+        -webkit-transform: translateX(100px) rotate(-45deg) ;
+          transform: translateX(100px)  rotate(-45deg)  rotateZ(180deg);
+         }
+     }
