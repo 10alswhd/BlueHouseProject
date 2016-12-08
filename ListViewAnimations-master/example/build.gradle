@@ -1,0 +1,76 @@
+/*
+ * Copyright 2014 Niek Haarman
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+apply plugin: 'com.android.application'
+
+dependencies {
+    compile 'com.android.support:support-annotations:20.0.0'
+
+    compile 'com.android.support:support-v4:20.0.0'
+    compile 'se.emilsjolander:stickylistheaders:2.5.0'
+
+    compile project(':lib-core')
+    compile project(':lib-core-slh')
+    compile project(':lib-manipulation')
+}
+
+android {
+    compileSdkVersion 20
+    buildToolsVersion '20.0.0'
+
+    defaultConfig {
+        minSdkVersion 14
+        //noinspection OldTargetApi
+        targetSdkVersion 20
+        versionName project.VERSION_NAME
+        versionCode Integer.parseInt(new Date().format('yyyyMMddHH'))
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file(System.getProperty("user.home") + "/.android/debug.keystore")
+        }
+
+        release {
+            storeFile file(System.getProperty("user.home") + "/.android/nhaarman.keystore")
+            storePassword nhaarman_lva_storePassword
+            keyAlias nhaarman_lva_keyAlias
+            keyPassword nhaarman_lva_keyPassword
+        }
+    }
+
+    buildTypes {
+
+        debug {
+            debuggable true
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            debuggable false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
