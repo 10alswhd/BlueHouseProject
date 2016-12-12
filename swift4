@@ -1,0 +1,17 @@
+func calculateAverage(total: Int, countOfNumbers: Int) -> Int {
+    return total / countOfNumbers
+}
+
+func average(algorithm: (Int, Int) -> Int, numbers: Int...) -> Int {
+    var countOfNumbers = 0
+    var total = 0
+    
+    for number in numbers {
+        total += number
+        countOfNumbers++
+    }
+    
+    return algorithm(total, countOfNumbers)
+}
+
+average(calculateAverage, 3, 3, 3)
