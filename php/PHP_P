@@ -1,0 +1,367 @@
+PHP_Projects_.idea_copyright_profiles_settings.xml
+<component name="CopyrightManager">
+  <settings default="" />
+</component>
+Raw
+ PHP_Projects_.idea_misc.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+</project>
+Raw
+ PHP_Projects_.idea_modules.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/PHP_Projects.iml" filepath="$PROJECT_DIR$/.idea/PHP_Projects.iml" />
+    </modules>
+  </component>
+</project>
+Raw
+ PHP_Projects_.idea_PHP_Projects.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+Raw
+ PHP_Projects_.idea_vcs.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+  </component>
+</project>
+Raw
+ PHP_Projects_basic.php
+ <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "myDB";
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+// sql to create table
+$sql = "CREATE TABLE MyGuests (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+firstname VARCHAR(30) NOT NULL,
+lastname VARCHAR(30) NOT NULL,
+email VARCHAR(50),
+reg_date TIMESTAMP
+)";
+if ($conn->query($sql) === TRUE) {
+    echo "Table MyGuests created successfully";
+} else {
+    echo "Error creating table: " . $conn->error;
+}
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('John', 'Doe', 'john@example.com')";
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+$query="CREATE TABLE contacts (id int(6) NOT NULL auto_increment,first varchar(15) NOT NULL,last varchar(15) NOT NULL,phone varchar(20) NOT NULL,mobile varchar(20) NOT NULL,fax varchar(20) NOT NULL,email varchar(30) NOT NULL,web varchar(30) NOT NULL,PRIMARY KEY (id),UNIQUE id (id),KEY id_2 (id))";
+$conn ->query($query);
+$conn->close();
+?> 
+Raw
+ PHP_Projects_dbtest.php
+<?php
+$servername="localhost";
+$user="root";
+$pass="";
+$db="testdb";
+$conn = mysqli($servername,$user,$pass,$db);
+if($conn->connect_error)
+{
+    echo "Connection failed";
+}
+echo "connection successful";
+$conn->close();
+?>
+Raw
+ PHP_Projects_logout.php
+<?php
+session_start();
+session_destroy();
+echo "You've have been logout!<BR><a href='userlogin.php'> Login </a>";
+?>
+Raw
+ PHP_Projects_member.php
+<?php
+session_start();
+if($_SESSION['username'])
+{
+echo "Welcome, ".$_SESSION['username']."!<br> <a href='logout.php'> Logout </a>";
+}
+else
+{
+		die("You must login! <a href='userlogin.php'> Login </a>");
+}
+?>
+Raw
+ PHP_Projects_pdfFile.php
+<?php
+$host="localhost";
+$user="root";
+$password="";
+$database ="testdb";
+mysql_connect($host,$user,$password,$database);
+$query="SELECT * FROM `test`";
+$result=mysql_query($query);
+//$num=mysql_numrows($query);
+//echo $num;
+$query = "INSERT INTO `test`(`number`, `name`, `phone`, `email`) VALUES (77,'jj','99','ppp')";
+mysql_query($query);
+?>
+Raw
+ PHP_Projects_phpXSS.php
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+<body>
+
+<?php
+$nameerr = $emailerr = $gendererr = $commenterr = $websiteerr = "";
+$name = $email = $gender = $comment = $website = "";
+if ($_SERVER["REQUEST_METHOD"]=="POST") {
+	if(empty($_POST["name")
+	{
+		nameerr="Enter Name";
+	}
+	else
+	{
+	$name = test_input($POST["name"]);
+		if(!preg_match("/^[a-zA-Z]*$/",$name))
+		{
+			$nameerr = "Only Letters";
+		}
+	}
+	
+	if(empty($_POST["email"])
+	{
+		emailerr="Enter Email";
+	}
+	else
+	{
+	$email = test_input($POST["email"]);
+			if(filter_var($email, FILTER_VALIDATE_EMAIL))
+			{
+					$emailerr = "Enter Proper Email";
+			}
+	
+	}
+	
+	if(empty($_POST["website"])
+	{
+		websiteerr = "Website address required";
+	}
+	else
+	{	
+	$website = test_input($POST["website"]);
+		if(!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website))
+		{
+			$websiteerr = "Invalid URL";
+		}
+	
+	}
+	if(empty($_POST["comment"])
+	{
+		$commenterr="Comments Required";
+	}
+	else
+	{
+	$comment = test_input($POST["comment"]);
+	}
+	if(empty($_POST["gender"])
+	{
+		gendererr = "Select a gender";
+	}
+	else
+	{
+	$gender = test_input($POST["gender"]);
+	}
+	
+	}
+	
+	function test_input($data) {
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
+	}
+?>
+<h2> PHP Form Validation Example </h2>
+<form method="post" action="<?php echo  htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+Name: <input type="text" name="name" value="<?php echo $name;?>"> <?php echo $nameerr; ?>
+<br><br>
+Email: <input type="text" name="email" value="<?php echo $email;?>"><?php echo $emailerr;?>
+<br><br>
+Website: <input type="text" name="website" value="<?php echo $website?>"><?php echo $websiteerr; ?>
+<br><br>
+Comment: <textarea name="comment" rows="5" cols="40" value=<?php echo $comment;?>"></textarea>
+<?php echo $commenterr; ?>
+<br><br>
+Gender:
+<input type="radio" name="gender" value="female" value="<?php if(isset($gender) && $gender=="female") echo "checked";?>">Female
+<input type="radio" name="gender" value="male" value="<?php if(isset($gender) && $gender=="male") echo "checked";?>">Male
+<?php echo $gendererr;?>
+<br>
+<input type="submit" name="submit" value="submit">
+</form>
+<?php
+echo "<h2> Your Input</h2>";
+echo $name;
+echo "<br>";
+echo $email;
+echo "<br>";
+echo $website;
+echo "<br>";
+echo $comment;
+echo "<br>";
+echo $Gender;
+?>
+</body>
+</html>
+Raw
+ PHP_Projects_process.php
+<?php
+	session_start();
+	//Get Values from form in login.php
+	$username = $_POST['user'];
+	$password = $_POST['pass'];
+	$dbuser ='root';
+	$dbpass = '';
+	$db='testdb';
+	
+	if($username && $password)
+	{
+	//prevent sql injection
+	$username =stripcslashes($username);
+	$password =stripcslashes($password);
+	
+	$username = mysql_real_escape_string($username);
+	$password = mysql_real_escape_string($password);
+	
+	
+	$query = "Select * from users where username='$username' and password='$password'";
+	$queryCount = "Select count(*) from users where username='$username' and password='$password'";
+	
+	
+	$connect = mysql_connect('localhost',$dbuser,$dbpass) 
+				or die("Can not connect");
+	mysql_select_db($db) or die("database not found");
+			
+	$count = mysql_query($queryCount);
+	$result = mysql_query($query) or die('failed to query db');
+	
+	
+	if($count !=0)
+	{
+	
+	$row = mysql_fetch_array($result);
+	
+	if($row['username']== $username && $row['password']==$password)
+	{
+		echo "Login Success!! Welcome ".$row['username'];
+		echo " you're in! <a href='member.php'>Click </a> here to enter!";
+		$_SESSION['username']=$username;
+		
+		
+	}
+	else
+	{
+		echo "Login Failed";
+	}
+	}
+	else
+	{
+		die("user not exist");
+	}
+	
+	mysql_close();
+	}
+	else
+	{
+		die("Please Enter username and password");
+	}
+?>
+Raw
+ PHP_Projects_style.css
+body
+{
+	background:#bbb;
+}
+#frm
+{
+	border:solid green 1px;
+	width:20%;
+	border-radius:5px;
+	margin:100px auto;
+	background:white;
+	padding:50px;
+}
+#btn
+{
+	color:#fff;
+	background:#343344;
+	padding:5px;
+	margin-left:69%;
+}
+Raw
+ PHP_Projects_TestsDbConnection.php
+<?php
+$user ='root';
+$pass ='';
+$db='testdb';
+$db = new mysqli('localhost',$user,$pass,$db) or die("Unable to connect");
+echo "Connected";
+?>
+Raw
+ PHP_Projects_userlogin.php
+<!DOCTYPE html>
+<html>
+<head>
+<title> User Login Page</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<div id="frm">
+	<form action="process.php" method="POST">
+	<p>
+	<label>Username: </label>
+	<input type="text" id="user" name="user" />
+	</p>
+	<p>
+	<label> Password: </label>
+	<input type="password" id="pass" name="pass"/>
+	</p>
+	<p>
+	<input type="submit" id="btn" value="login"/>
+	</p>
+	</form>
+</div>
+</body>
+</html>
+<?php
+?>
