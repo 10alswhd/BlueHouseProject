@@ -1,0 +1,5 @@
+class <# ClassName #> {
+    static let sharedInstance = <# ClassName #>()
+    
+    private init() {}
+}
