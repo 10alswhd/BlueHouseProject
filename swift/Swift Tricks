@@ -1,0 +1,40 @@
+// also see http://oleb.net/blog/2014/07/swift-strings/
+// Mark: Strings
+// if you want to stringByReplacingOccurrencesOfString without using a nil range, you need to convert to NSString first
+var str = "some junk"
+let tmpString: NSString = str
+str = tmpString.stringByReplacingOccurrencesOfString(" ", withString: "+", options: nil, range: NSMakeRange(1, 6))
+
+// find the length of a swift string
+let length = countElements(str)
+
+// NSLinguisticTagger
+let text: NSString = "Yeah, you think youre pretty way up there but I can get you! Let me just add three more drops of explosive diarrhea. Oooo... Hey Princess Bubblegum, when we bring the dead back to life will it be filled with worms? No. If my decorpsinator serum works all the dead Candy People will look as young and healthy as you do. Pick up that platter, tough guy. Old Mr. Creampuff? We used to date. Somethings happening!"
+//let length = countElements(text)
+let length = text.length
+let range = NSMakeRange(0, length - 1)
+
+let tagSchemes = NSLinguisticTagger.availableTagSchemesForLanguage("en")
+let options = NSLinguisticTaggerOptions.OmitWhitespace | NSLinguisticTaggerOptions.OmitPunctuation | NSLinguisticTaggerOptions.JoinNames
+
+let tagger = NSLinguisticTagger(tagSchemes: tagSchemes, options: Int(options.toRaw()))
+tagger.string = text
+tagger.enumerateTagsInRange(range, scheme: NSLinguisticTagSchemeNameTypeOrLexicalClass, options:options) {
+    tag,tokenRange,_,_ in
+    let token = text.substringWithRange(tokenRange)
+    println("\(tag), \(token)")
+    
+}
+
+func pluralize(word: String) -> String {
+    if (word.hasSuffix("y")) {
+        if let range = word.rangeOfString("y", options: .BackwardsSearch, range: nil, locale: nil) {
+            let plural = word.stringByReplacingCharactersInRange(range, withString: "ies")
+            return plural
+        }
+        return word
+    }
+    else {
+        return word + "s"
+    }
+}
