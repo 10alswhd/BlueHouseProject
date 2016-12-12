@@ -1,0 +1,44 @@
+//-----------------------------
+// wanted end result
+//-----------------------------
+enum MyEnum {
+    case Value1
+    ...
+  
+    var path: String {
+        // loads of stuff need to be done to fetch the string
+        // want this value to be injected into the enum by inheritence or something similar
+        // I will have several enums and don't want to replicate code
+    }
+    
+    var otherValue: String {
+        return "This is the path: \(path)"
+    }
+}
+
+//-----------------------------
+// one way I tested to fix this
+//-----------------------------
+enum BaseEnum {
+    case BaseCase
+
+    var path: String {
+        // do all the stuff here
+    }
+}
+
+enum MyEnum: BaseEnum { // this doesn't work because of inability to have literal conversion
+    case Value1
+    ...
+    
+    var otherValue: String {
+        return "This is the path: \(path)" // error path isn't here
+    }
+}
+
+enum MyEnum2: BaseEnum {
+    // this would avoid the long duplication of
+    // var path: String {
+    //    ...
+    //}
+}
