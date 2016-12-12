@@ -1,0 +1,31 @@
+import UIKit
+
+protocol Profile {
+    var name: String? { get }
+    var avatar: Picture? { get }
+}
+
+protocol Picture {
+    var image: UIImage? { get }
+    var thumbnail: UIImage? { get }
+}
+
+extension UIImage: Picture {
+    var image: UIImage? {
+        get {
+            return self
+        }
+    }
+    
+    var thumbnail: UIImage? {
+        get {
+            return self
+        }
+    }
+}
+
+// Interest doesn't conform to Profile
+class Interest: Profile {
+    var name: String?
+    var avatar: UIImage?
+}
