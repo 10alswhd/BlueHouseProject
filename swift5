@@ -1,0 +1,174 @@
+import cocilib
+
+
+@_exported import SQL
+
+enum OracleError: ErrorType {
+    case NotConnected
+}
+
+
+public class Result {
+    
+    public let resultPointer: COpaquePointer
+    
+    public init(_ resultPointer: COpaquePointer) {
+        self.resultPointer = resultPointer
+    }
+    
+    deinit {
+        clear()
+    }
+    
+    public func clear() {
+        // mysql_free_result(resultPointer)
+    }
+    
+    
+    public subscript(position: Int) -> String {
+        
+        var result: [String: Data?] = [:]
+
+        var a  = self.fields
+        
+        // OCI_FetchSeek(resultPointer, UInt32(OCI_SFD_RELATIVE), Int32(position))
+        OCI_FetchNext(resultPointer)	
+        print("myrow")
+        print(OCI_GetInt(resultPointer, 1))
+        // let row = mysql_fetch_row(resultPointer)
+        
+        // let lengths = mysql_fetch_lengths(resultPointer)
+        
+        // for (fieldIndex, field) in fields.enumerate() {
+            // let val = row[fieldIndex]
+            // let length = Int(lengths[fieldIndex])
+            
+            // var buffer = [UInt8](count: length, repeatedValue: 0)
+            
+            // memcpy(&buffer, val, length)
+            
+            // result[field.name] = Value(data: Data(uBytes: buffer))
+        // }
+        return "asd"
+        // return Row(dataByFieldName: result)
+    }
+    
+    public var count: Int {
+        return Int(OCI_GetRowCount(resultPointer))
+    }
+    
+    public var fields: String {
+        // var result: [Field] = []
+        let colsCount = OCI_GetColumnCount(self.resultPointer)
+        print("colsCount=\(colsCount)")
+        for i in 0..<colsCount {
+            let col = OCI_GetColumn(self.resultPointer, i)
+            print(col)
+            let name =  OCI_ColumnGetName(col)
+            print(String.fromCString(name))
+            // result.append(
+                // Field(name: )
+            // )
+        }
+        return "asd"
+        // return result
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+public struct OracleService{
+	var raw_str: String?, host:String?, port:String?, service:String?
+	init(from_string raw_str: String){
+		self.raw_str = raw_str
+	}
+	init(host: String, port: String, service: String) {
+		self.host = host; self.port = port; self.service = service
+	}
+	var string: String {
+		if let raw_str = raw_str {
+			return raw_str
+		} 
+		if let host = host, port = port, service = service  {
+			return "\(host):\(port)/\(service)"
+		}
+		return ""
+	}
+}
+
+public struct ConnectionInfo {
+	let service_name: String, user:String, pwd: String
+} 
+
+class Connection {
+	// associatedtype Error: ErrorType
+	var cn: COpaquePointer? = nil
+	let conn_info: ConnectionInfo
+	required init(service_name: String, user:String, pwd: String) {
+		conn_info = ConnectionInfo(service_name: service_name, user: user, pwd: pwd)
+		OCI_Initialize(nil, nil, UInt32(OCI_ENV_DEFAULT)); //should be once per app
+	}
+	required convenience init (service: OracleService, user: String, pwd: String){
+		self.init(service_name: service.string, user: user, pwd: pwd)
+	}
+	func close() {
+		guard var cn = cn else {
+			return
+		}
+		OCI_ConnectionFree(cn)
+		cn = nil
+	}
+	func open() throws {
+		cn = OCI_ConnectionCreate(conn_info.service_name, conn_info.user, conn_info.pwd, UInt32(OCI_SESSION_DEFAULT));
+	}
+	func execute(statement: String) throws -> Result  {
+		guard let cn = cn else {
+			throw OracleError.NotConnected
+		}
+
+		let st = OCI_StatementCreate(cn);
+		OCI_ExecuteStmt(st, statement);
+		let rs = OCI_GetResultset(st);
+		// OCI_StatementFree(st)
+		// print(OCI_GetColumnCount(rs))
+		// while OCI_FetchNext(rs) != 0 {
+        	// print(OCI_GetInt(rs, 1));
+    	// }
+    	return Result(rs)
+
+    	// print(OCI_GetRowCount(rs))
+	}
+	var connected: Bool {
+		guard let cn = cn else {
+			return false
+		}
+		return OCI_IsConnected(cn) == 1
+	}
+	deinit {
+		close()
+		OCI_Cleanup()  //should be once per app
+	}
+
+}
+
+
+
+// var c: Connection? = Connection()
+let service = OracleService(host: "dv", port:"1521", service: "xe")
+
+let b = Connection(service: service, user:"broq", pwd:"anypassword")
+try b.open()
+
+let res = try! b.execute("select 15, \'asd\' from dual")
+res[0]
+// print(c?.connected)
+// c = nil
+// while true{
+// }
