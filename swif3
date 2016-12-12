@@ -1,0 +1,63 @@
+import UIKit
+
+class TableViewController: UITableViewController {
+    
+    var photoData : [String] = ["tokyo-09.jpg","Germany.jpg","france.jpg"]
+    var photoName : [String] = ["Tokyo","Germany","France"]
+    var photoDescribe : [String] = ["Tokyo is no1","Tokyo is no2","Tokyo is no3"]
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    
+        //設定Navigation bar title
+        self.title = "My Journals"
+        
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+    }
+
+    // MARK: - Table view data source
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.photoData.count
+    }
+
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("photoCell", forIndexPath: indexPath) as! photoCell
+        
+        cell.Photo.image = UIImage(named: self.photoData[indexPath.row])
+        cell.PhotoTitle.text = self.photoName[indexPath.row]
+
+        return cell
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "PhotoView" {
+            if let desination = segue.destinationViewController as? PhotoViewController {
+                //判斷是否從Cell的圖片點選
+                guard let senderImage = sender as? photoCell else {
+                    return
+                }
+                //判斷從哪個圖片indexPath點選
+                guard let indexpath = tableView?.indexPathForCell(senderImage) as NSIndexPath! else {
+                    return
+                }
+                indexpath.row
+                
+                desination.showPhoto.image = UIImage(named : photoData[indexpath.row]) //Error
+                desination.showTitle.text = photoName[indexpath.row]
+                desination.showDescribe?.text = photoDescribe[indexpath.row]
+            }
+        }
+    }
+
+}
