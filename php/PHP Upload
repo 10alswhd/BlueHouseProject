@@ -1,0 +1,67 @@
+<?php require_once('../upload/incPureUpload.php'); ?>
+<?php require_once('../upload/incResize.php'); ?>
+<?php require_once('../upload/incPUAddOn.php'); ?>
+<?php
+
+if (isset($_GET['upload'])) {
+	$ppu = new pureFileUpload();
+	$ppu->path = "../images";
+	$ppu->extensions = "GIF,JPG,JPEG,BMP,PNG";
+	$ppu->formName = "createalbum";
+	$ppu->storeType = "file";
+	$ppu->sizeLimit = "2000";
+	$ppu->nameConflict = "uniq";
+	$ppu->requireUpload = "true";
+	$ppu->minWidth = "";
+  $sip->quality = "100";
+	$ppu->minHeight = "";
+	$ppu->maxWidth = "";
+	$ppu->maxHeight = "";
+	$ppu->saveWidth = "";
+	$ppu->saveHeight = "";
+	$ppu->timeout = "600";
+	$ppu->progressBar = "progress.php";
+	$ppu->progressWidth = "300";
+	$ppu->progressHeight = "100";
+	$ppu->checkVersion("2.1.2");
+	$ppu->doUpload();
+}
+$acaoUpload = $_SERVER['PHP_SELF'];
+if (isset($_SERVER['QUERY_STRING'])) {
+  if (!preg_match('/upload=true/', $_SERVER['QUERY_STRING'])) {
+		$acaoUpload .= "?".$_SERVER['QUERY_STRING']."&upload=true";
+	} else {
+		$acaoUpload .= "?".$_SERVER['QUERY_STRING'];
+	}
+} else {
+  $acaoUpload .= "?"."upload=true";
+}
+
+
+if (isset($_GET['upload'])) {
+  $ruf = new renameUploadedFiles($ppu);
+  $ruf->renameMask = "fotos_album.jpg";
+  $ruf->checkVersion("1.0.3");
+  $ruf->doRename();
+}
+
+
+if (isset($_GET['upload'])) {
+  $sip = new resizeUploadedFiles($ppu);
+  $sip->component = "GD";
+  $sip->resizeImages = "true";
+  $sip->aspectImages = "true";
+  $sip->maxWidth = "600";
+  $sip->maxHeight = "433";
+  $sip->quality = "100";
+  $sip->makeThumb = "true";
+  $sip->pathThumb = "../images/small";
+  $sip->aspectThumb = "true";
+  $sip->naming = "suffix";
+  $sip->suffix = "";
+  $sip->maxWidthThumb = "100";
+  $sip->maxHeightThumb = "75";
+  $sip->qualityThumb = "100";
+  $sip->checkVersion("1.0.3");
+  $sip->doResize();
+}
