@@ -1,0 +1,20 @@
+No.     Time        Source                Destination           Protocol Length Info
+      1 0.000000    127.0.0.1             127.0.0.1             CLASSIC-STUN 62     Message: Binding Request
+      2 0.000278    127.0.0.1             127.0.0.1             STUN     130    Binding Request user: :yY5U
+      3 0.000300    127.0.0.1             127.0.0.1             ICMP     158    Destination unreachable (Port unreachable)
+      4 0.001104    127.0.0.1             239.255.255.250       SSDP     201    M-SEARCH * HTTP/1.1 
+      5 0.001312    127.0.0.1             239.255.255.250       SSDP     202    M-SEARCH * HTTP/1.1 
+      6 0.201997    127.0.0.1             127.0.0.1             CLASSIC-STUN 62     Message: Binding Request
+      7 0.501870    127.0.0.1             239.255.255.250       SSDP     201    M-SEARCH * HTTP/1.1 
+      8 0.501969    127.0.0.1             239.255.255.250       SSDP     202    M-SEARCH * HTTP/1.1 
+      9 0.604477    127.0.0.1             127.0.0.1             CLASSIC-STUN 62     Message: Binding Request
+     10 0.604489    127.0.0.1             127.0.0.1             STUN     130    Binding Request user: :yY5U
+     11 0.604499    127.0.0.1             127.0.0.1             ICMP     158    Destination unreachable (Port unreachable)
+     12 1.002439    127.0.0.1             239.255.255.250       SSDP     201    M-SEARCH * HTTP/1.1 
+     13 1.002675    127.0.0.1             239.255.255.250       SSDP     202    M-SEARCH * HTTP/1.1 
+     14 1.409639    127.0.0.1             127.0.0.1             CLASSIC-STUN 62     Message: Binding Request
+     15 1.812413    127.0.0.1             127.0.0.1             STUN     130    Binding Request user: :yY5U
+     16 1.812441    127.0.0.1             127.0.0.1             ICMP     158    Destination unreachable (Port unreachable)
+     17 4.208621    127.0.0.1             127.0.0.1             STUN     130    Binding Request user: :yY5U
+     18 4.208650    127.0.0.1             127.0.0.1             ICMP     158    Destination unreachable (Port unreachable)
+     19 9.019553    127.0.0.1             127.0.0.1             CLASSIC-STUN 74     Message: Binding Response
