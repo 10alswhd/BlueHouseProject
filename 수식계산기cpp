@@ -1,0 +1,448 @@
+//Token.h
+#pragma once
+#include <iostream>
+using namespace std;
+#include <string.h>
+ 
+class Token
+{
+    int priority;
+public:
+    virtual void View()const=0;
+    bool MoreThanPriority(Token *token);   
+protected:
+    void SetPriority(int priority);
+};
+ 
+#include <vector>
+using namespace std;
+typedef vector<Token *> Tokens;
+typedef Tokens::iterator TIter;
+typedef Tokens::const_iterator CTIter; 
+  
+//Token.cpp
+#include "Token.h"
+ 
+bool Token::MoreThanPriority(Token *token)
+{
+    return priority>=token->priority;
+}
+ 
+void Token::SetPriority(int priority)
+{
+    this->priority = priority;
+}
+//Operator.h
+#pragma once
+#include "token.h"
+ 
+class Operator :
+    public Token
+{
+    char ch;
+public:
+    Operator(char ch);
+    void View()const;
+    int Calculate(int lvalue, int rvalue)const;
+ 
+    static bool IsOperator(char ch);
+    static bool IsOperator(const Token *token);
+};
+//Operator.cpp
+#include "Operator.h"
+ 
+Operator::Operator(char ch)
+{
+    this->ch = ch;
+    if((ch=='+')||(ch=='-'))
+    {
+        SetPriority(1);
+    }
+    else
+    {
+        SetPriority(2);
+    }
+}
+ 
+void Operator::View()const
+{
+    cout<<ch<<" ";
+}
+int Operator::Calculate(int lvalue, int rvalue)const
+{
+    switch(ch)
+    {
+    case '+': return lvalue + rvalue;
+    case '-': return lvalue - rvalue;
+    case '*': return lvalue * rvalue;
+    case '/':
+        if(rvalue)
+        {
+            return lvalue / rvalue;
+        }
+        cout<<"divide zero error"<<endl;
+        return 0;
+    }
+    throw "연산자 기호에 문제가 있습니다.";
+}
+ 
+bool Operator::IsOperator(char ch)
+{
+    return (ch=='+')||(ch=='-')||(ch=='*')||(ch=='/');
+}
+ 
+bool Operator::IsOperator(const Token *token)
+{
+    return dynamic_cast<const Operator *>(token)!=0;
+}
+//Operand.h
+#pragma once
+#include "Token.h"
+ 
+class Operand:
+    public Token
+{
+    int value;
+public:
+    Operand(int value);
+    void View()const;
+    int GetValue()const;
+    static bool IsDigit(char ch);
+    static int ConvertStrToInt(const char *str,int &index);
+    static bool IsOperand(const Token *token);   
+};
+//Operand.cpp
+#include "Operand.h"
+ 
+Operand::Operand(int value)
+{
+    this->value = value;
+    SetPriority(3);
+}
+ 
+void Operand::View()const
+{
+    cout<<value<<" ";
+}
+ 
+int Operand::GetValue()const
+{
+    return value;
+}
+ 
+bool Operand::IsDigit(char ch)
+{
+    return (ch>='0')&&(ch<='9');
+}
+int Operand::ConvertStrToInt(const char *str,int &index)
+{
+    int value = 0;
+ 
+    while(IsDigit(str[index]))
+    {
+        value = value * 10 + str[index] - '0';
+        index++;
+    }
+    return value;
+}
+ 
+bool Operand::IsOperand(const Token *token)
+{
+    return dynamic_cast<const Operand *>(token)!=0;
+}
+//Lexer.h
+#pragma once
+#include "Operand.h"
+#include "Operator.h"
+ 
+class Lexer
+{
+    Tokens tokens;
+public:
+    bool MakeToken(const char *expr);
+    Tokens GetTokens()const;   
+    ~Lexer();
+};
+//Lexer.cpp
+#include "Lexer.h"
+ 
+bool Lexer::MakeToken(const char *expr)
+{
+    tokens.clear();
+    int i = 0;
+ 
+    while(expr[i])
+    {
+        if(Operator::IsOperator(expr[i]))
+        {
+            tokens.push_back(new Operator(expr[i]));
+            i++;
+        }
+        else
+        {
+            if(Operand::IsDigit(expr[i]))
+            {
+                int value = Operand::ConvertStrToInt(expr,i);
+                tokens.push_back(new Operand(value));
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+ 
+Tokens Lexer::GetTokens()const
+{
+    return tokens;
+}
+ 
+Lexer::~Lexer()
+{
+    TIter seek = tokens.begin();
+    TIter last = tokens.end();
+ 
+    for(  ;seek != last; ++seek)
+    {
+        delete (*seek);
+    }
+}
+//SynAnalyzer.h
+#pragma once
+#include "Operator.h"
+#include "Operand.h"
+ 
+class SynAnalyzer
+{
+public:   
+    static bool Analyze(Tokens tokens);
+};
+//SynAnalyzer.cpp
+#include "SynAnalyzer.h"
+ 
+bool SynAnalyzer::Analyze(Tokens tokens)
+{
+    int tcnt = tokens.size();
+    if(tcnt%2==0)
+    {
+        return false;
+    }
+    if(Operand::IsOperand(tokens[0])==false)
+    {
+        return false;
+    }
+    for(int i = 1; i<tcnt; i+=2)
+    {
+        if(Operator::IsOperator(tokens[i])==false)
+        {
+            return false;
+        }           
+        if(Operand::IsOperand(tokens[i+1])==false)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+//Parser.h
+#pragma once
+#include "Operator.h"
+#include "Operand.h"
+class Parser
+{
+    Tokens tokens;
+    struct Node
+    {
+        Token *token;
+        Node *lc;
+        Node *rc;
+        Node(Token *token)
+        {
+            this->token = token;
+            lc = rc = 0;
+        }
+    };
+    Node *root;
+public:
+    Parser(Tokens tokens);
+    ~Parser(void);
+    void Parsing();
+    void PostOrderView()const;
+    int Calculate();
+private:
+    void Add(Token *token);
+    void PostOrder(Node *sr)const;
+    int PostOrderCalculate(Node *sr);
+    void Clear(Node *sr);
+};
+//Parser.cpp
+#include "Parser.h"
+ 
+Parser::Parser(Tokens tokens)
+{
+    this->tokens = tokens;
+}
+ 
+Parser::~Parser(void)
+{
+    Clear(root);
+}
+ 
+void Parser::Clear(Node *sr)
+{
+    if(sr)
+    {
+        Clear(sr->lc);
+        Clear(sr->rc);
+        delete sr;
+    }
+}
+ 
+void Parser::Parsing()
+{
+    int tcnt = tokens.size();
+    root = new Node(tokens[0]);
+    for(int i = 1; i<tcnt;i++)
+    {
+        Add(tokens[i]);
+    }
+}
+ 
+void Parser::Add(Token *token)
+{
+    Node *now = new Node(token);
+ 
+    Token *st = root->token;
+    if(st->MoreThanPriority(token))
+    {
+        now->lc = root;
+        root = now;
+    }
+    else
+    {
+       
+        if(Operand::IsOperand(token)==false)
+        {
+            now->lc = root->rc;
+            root->rc = now;
+        }
+        else
+        {
+            Node *pa = root;
+            while(pa->rc)
+            {
+                pa = pa->rc;
+            }
+            pa->rc = now;
+        }
+    }
+}
+ 
+void Parser::PostOrderView()const
+{
+    PostOrder(root);
+    cout<<endl;
+}
+ 
+void Parser::PostOrder(Node *sr)const
+{
+    if(sr)
+    {
+        PostOrder(sr->lc);
+        PostOrder(sr->rc);
+        sr->token->View();
+    }
+}
+ 
+int Parser::Calculate()
+{
+    return PostOrderCalculate(root);
+} 
+ 
+int Parser::PostOrderCalculate(Node *sr)
+{
+    if(sr->lc)
+    {
+        int lvalue = PostOrderCalculate(sr->lc);
+        int rvalue = PostOrderCalculate(sr->rc);
+        Operator *op = dynamic_cast<Operator *>(sr->token);
+        return op->Calculate(lvalue, rvalue);
+    }
+    else
+    {
+        Operand *op = dynamic_cast<Operand *>(sr->token);
+        return op->GetValue();
+    }
+}
+//Calculator.h
+#pragma once
+#include "Lexer.h"
+#include "SynAnalyzer.h"
+#include "Parser.h"
+class Calculator
+{
+    char *expr;
+    Tokens tokens;
+public:
+    Calculator(const char *expr);
+    ~Calculator(void);
+    void Run();
+};
+ 
+//Calculator.cpp
+#include "Calculator.h"
+Calculator::Calculator(const char *expr)
+{
+    int len_p1 = strlen(expr)+1;
+    this->expr = new char[len_p1];
+    strcpy_s(this->expr,len_p1,expr);
+}
+Calculator::~Calculator(void)
+{
+    delete[] expr;
+}
+void Calculator::Run()
+{
+    cout<<expr<<"을 계산합니다. ..."<<endl;
+    Lexer lexer;
+    if(lexer.MakeToken(expr))
+    {
+        tokens = lexer.GetTokens();
+        if(SynAnalyzer::Analyze(tokens))
+        {
+            Parser parser(tokens);
+            parser.Parsing();
+            parser.PostOrderView();
+            cout<<expr<<"="<<parser.Calculate()<<endl;
+        }
+        else
+        {
+            cout<<"수식에 사용한 표현이 문법에 맞지 않습니다."<<endl;
+        }
+    }
+    else
+    {
+        cout<<"사용할 수 없는 기호가 있습니다."<<endl;
+    }
+    cout<<endl;
+}
+//Program.cpp
+#include "Calculator.h"
+int main()
+{
+    char *tc_exprs[6]=
+    {
+        "2+3-5*5+6/2", "23*5/2+4*6", "2+4*5#6",
+        "2+3*5+", "3+36+-7", "45+3*5-2+5/2*7"
+    };
+    for(int i = 0; i<6; i++)
+    {
+        Calculator *cal  = new Calculator(tc_exprs[i]);
+        cal->Run();
+        delete cal;
+    }
+    return 0;
+}
+ 
