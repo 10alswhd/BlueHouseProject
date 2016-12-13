@@ -1,0 +1,21 @@
+のようなものも見つかりました。
+
+`pc`のポインタから、`iseq->iseq_encoded`を引くことでPC_COUNTになるというわけですから、
+`pc`はメモリ空間上の実際の実行位置で、`iseq->iseq_encoded`は命令の入った配列の先頭ポインタと考えられますね。
+
+
+そしてどんどん深く飛んでいくことになりますが、
+この関数はさらに`rb_iseq_line_no()`へ移譲しています。
+iseq.cに定義があります。
+
+```c
+unsigned int
+rb_iseq_line_no(const rb_iseq_t *iseq, size_t pos)
+{
+    if (pos == 0) {
+    return find_line_no(iseq, pos);
+    }
+    else {
+    return find_line_no(iseq, pos - 1);
+    }
+}
