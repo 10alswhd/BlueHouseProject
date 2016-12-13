@@ -1,0 +1,37 @@
+bool isNumber(const char *s) {
+    // Start typing your C/C++ solution below
+    // DO NOT write int main() function
+    bool bDigit = false;
+    bool bNeg = false;
+    bool bPoint = false;
+    bool bE = false;
+    bool bSpace = false;
+    for(; isspace(*s); ++s);
+    for(; '\0' != *s; ++s){
+        if(isspace(*s)){
+            bSpace = true;
+        }else if(bSpace){
+            return false;
+        }else if(isdigit(*s)){
+            bDigit = true;
+        }else if('+' == *s || '-' == *s){
+            if(bNeg || bDigit || bPoint)
+                return false;
+            bNeg = true;
+        }else if('.' == *s){
+            if(bPoint || bE)
+                return false;
+            bPoint = true;
+        }else if('e' == *s){
+            if(bE || !bDigit)
+                return false;
+            bE = true;
+            bDigit = false;
+            bNeg = false;
+            bPoint = false;
+        }else{
+            return false;
+        }
+    }
+    return bDigit;
+}
