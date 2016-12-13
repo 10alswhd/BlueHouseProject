@@ -1,0 +1,105 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <search.h>
+#define cons(X,Y) new_list((void *) X, Y)
+
+/* Definition of data structures */
+typedef struct list{
+  void *data;
+  struct list *next;
+} list;
+
+list *new_list(void *data, list *next){
+  list *lst = (list *) malloc(sizeof(list));
+  lst->data = data; lst->next = next;
+  return lst;
+}
+
+void dest_list(list *lst){
+  while(lst != NULL){
+    list *next = lst->next;
+    free(lst);
+    lst = next;
+  }
+}
+
+
+typedef struct stack{
+  list *top;
+} stack;
+
+typedef struct queue{
+  int size;
+  list *first;
+  list *last;
+} queue;
+
+stack *new_stack(){
+  stack *s = (stack*) malloc(sizeof(stack));
+  s->top = NULL;
+  return s;
+}
+
+queue *new_queue(){
+  queue *q = (queue*) malloc(sizeof(stack));
+  q->size = 0;
+  q->first = NULL;
+  q->last = NULL;
+  return q;
+}
+
+void *pop(stack *s){
+  list *old = s->top;
+  s->top = old->next;
+  return old->data;
+}
+
+
+
+void push(void* data, stack *s){
+  s->top = cons(data, s->top);
+}
+
+void enqueue(void *data,queue *q){
+  list *lst = cons(data,NULL);
+  if(q->size <= 0){
+    q->first = lst;
+    q->last = lst;
+  } else{
+    q->last->next = lst;
+    q->last = lst;
+  }
+  q->size = q->size + 1;
+}
+
+void *dequeue(queue *q){
+  void *data;
+  if(q->size <= 0)
+    data = NULL;
+  else{
+    data = q->first->data;
+    q->first = q->first->next;
+    q->size = q->size - 1;
+  }
+  return data;
+}
+
+int main (char *argv[]){
+  stack *s = new_stack();
+  queue *q = new_queue();
+  char *c[5] = {"tom","dick","harry","jerry","phil"};
+  for(int i = 0; i < 5; i++){
+    push((void*) c[i], s);
+    enqueue((void*) c[i],q);
+  }
+  printf("\nQueue:\n");
+  while(q->size != 0){
+    printf("%s\n", (char*) dequeue(q));
+  }
+  printf("\nStack:\n");
+  while(s->top != NULL){
+    printf("%s\n",(char*) pop(s));
+  }
+  return 0;
+}
