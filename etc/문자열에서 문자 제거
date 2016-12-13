@@ -1,0 +1,25 @@
+
+//문자열에서 문자 제거
+#include <stdlib.h>
+#include <stdio.h>
+ 
+void Eliminate(char *str, char ch);
+int main(void)
+{
+    char str[] = "Hello World";
+    Eliminate(str, 'l');
+    printf("%s\n", str);
+    return 0;
+}
+ 
+void Eliminate(char *str, char ch)
+{
+    for (; *str != '\0'; str++)//종료 문자를 만날 때까지 반복
+    {
+        if (*str == ch)//ch와 같은 문자일 때
+        {
+            strcpy(str, str + 1);
+            str--;
+        }
+    }
+}
