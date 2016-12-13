@@ -1,0 +1,114 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 (日本) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG1 DIALOGEX 0, 0, 262, 313
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "検索",IDOK,144,120,50,14
+    PUSHBUTTON      "終了",IDEND,198,294,50,14
+    LISTBOX         IDC_LIST1,7,7,89,299,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT1,174,96,72,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO1,174,78,72,113,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "タイプ",IDC_STATIC,114,80,42,8
+    LTEXT           "値",IDC_STATIC,114,98,48,8
+    LTEXT           "",IDC_STATIC_NOW,108,6,132,49
+    PUSHBUTTON      "書き換え",IDC_BUTTON_WRITE,198,228,50,14
+    EDITTEXT        IDC_EDIT2,174,210,74,14,ES_AUTOHSCROLL
+    LTEXT           "書き換える値",IDC_STATIC,114,208,50,14
+    LTEXT           "開始",IDC_STATIC,114,264,17,8
+    EDITTEXT        IDC_EDIT3,138,258,96,14,ES_AUTOHSCROLL
+    LTEXT           "終了",IDC_STATIC,114,282,17,8
+    EDITTEXT        IDC_EDIT4,138,276,96,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT5,174,174,74,14,ES_AUTOHSCROLL
+    LTEXT           "アドレス",IDC_STATIC,114,174,50,14
+    COMBOBOX        IDC_COMBO2,174,192,72,113,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "タイプ",IDC_STATIC,114,190,50,14
+    GROUPBOX        "書き換え",IDC_STATIC,102,150,156,96
+    PUSHBUTTON      "キャンセル",IDC_BUTTONCANSEL,198,120,50,14
+    GROUPBOX        "検索",IDC_STATIC,102,66,156,78
+    LTEXT           "Created by KAGASU",IDC_STATIC,107,298,66,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 255
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 306
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // 日本語 (日本) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
