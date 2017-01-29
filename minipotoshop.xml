@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/iconLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/ibZoomin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/zoom_in" />
+
+        <ImageButton
+            android:id="@+id/ibZoomout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/zoom_out" />
+
+        <ImageButton
+            android:id="@+id/ibRotate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rotate" />
+
+        <ImageButton
+            android:id="@+id/ibBright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bright" />
+
+        <ImageButton
+            android:id="@+id/ibDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dark" />
+
+        <ImageButton
+            android:id="@+id/ibBlur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/blur" />
+
+        <ImageButton
+            android:id="@+id/ibEmbos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/embos" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/pictureLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="9"
+        android:gravity="center"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+</LinearLayout>
